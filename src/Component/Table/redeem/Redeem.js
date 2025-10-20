@@ -6,8 +6,6 @@ import Searching from "../../extra/Searching";
 import { useState } from "react";
 import { useEffect } from "react";
 import { getRedeem, action } from "../../store/redeem/redeem.action";
-
-import dayjs from "dayjs";
 import $ from "jquery";
 import Button from "../../extra/Button";
 import { OPEN_DIALOGUE } from "../../store/dialogue/dialogue.type";

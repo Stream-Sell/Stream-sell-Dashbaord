@@ -6,14 +6,12 @@ import { connect, useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { useEffect } from "react";
 import { getFakeSellerDropDown } from "../../store/fake Seller/fakeSeller.action";
-import { Navigate, useLocation } from "react-router-dom";
 
 import {
   updateFakeReel,
   createFakeReel,
 } from "../../store/fakeReels/fakeReels.action";
 import { getSellerProduct } from "../../store/seller/seller.action";
-import VideoThumbnail from "react-video-thumbnail";
 
 const FakeReelDialogue = (props) => {
   const dispatch = useDispatch();

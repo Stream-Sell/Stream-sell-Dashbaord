@@ -1,5 +1,6 @@
-import { useEffect } from "react";
+
 import * as ActionType from "./attribute.type";
+import { useEffect } from "react";
 const initialState = {
   attribute: [],
   subcategory: [],

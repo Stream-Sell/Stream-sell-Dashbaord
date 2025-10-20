@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
-import { Rating } from "react-simple-star-rating";
 import { getLiveSellerProduct } from "../../store/seller/seller.action";
 import male from "../../../assets/images/dummy.jpg"
 import { capitalize } from "@mui/material";

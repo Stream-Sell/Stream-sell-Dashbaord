@@ -4,7 +4,6 @@ import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Button from '../../extra/Button';
 import Table from '../../extra/Table';
-import { use } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteReportReason, getReportReason } from '../../store/reportReason/reportReason.action';
 import ReportReasonDialog from './ReportReasonDialog';

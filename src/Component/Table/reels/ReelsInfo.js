@@ -3,7 +3,6 @@ import { connect, useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { reelInfo, reelLike } from "../../store/reels/reels.action";
 import dayjs from "dayjs";
-import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { getDefaultCurrency } from "../../store/currency/currency.action";
 import Tick from "../../../assets/images/verified.png";

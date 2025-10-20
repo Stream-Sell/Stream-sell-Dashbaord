@@ -96,25 +96,7 @@ const Pagination = (props) => {
     onPageChange(event, Math.max(0, Math.ceil(count / serverPerPage) - 1));
   };
 
-  const renderPageNumbers = () => {
-    const totalPages = Math.ceil(totalData / serverPerPage);
-    const pageNumbers = [];
-    for (let i = 0; i < totalPages; i++) {
-      pageNumbers.push(
-        <button
-          key={i}
-          style={{
-            ...styles.pageNumberButton,
-            ...(i === serverPage ? styles.activePageNumberButton : {}),
-          }}
-          onClick={(event) => onPageChange(event, i)}
-        >
-          {i + 1}
-        </button>
-      );
-    }
-    return pageNumbers;
-  };
+
 
   return (
     <div className="pagination">

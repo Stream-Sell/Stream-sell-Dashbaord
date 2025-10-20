@@ -10,8 +10,6 @@ import {
 import { getWithdraw } from "../../store/withdraw/withdraw.action";
 import Button from "../../extra/Button";
 
-import { set } from "date-fns";
-
 const Setting = (props) => {
   const { setting } = useSelector((state) => state.setting);
   console.log("setting", setting);
@@ -19,7 +17,7 @@ const Setting = (props) => {
 
   const dispatch = useDispatch();
   // box 1
-  const [settingId, setSettingId] = useState("");
+  const [, setSettingId] = useState("");
   const [zegoAppId, setZegoAppId] = useState("");
   const [minPayout, setMinPayout] = useState("");
   const [zegoAppSignIn, setZegoAppSignIn] = useState("");
@@ -452,7 +450,7 @@ const Setting = (props) => {
                   onChange={(e) => {
                     const newValue = e.target.value;
                     try {
-                      const newData = JSON.parse(newValue);
+                      JSON.parse(newValue);
                       setPrivateKey(newValue);
                       setError("");
                     } catch (error) {

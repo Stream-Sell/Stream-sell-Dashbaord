@@ -3,18 +3,13 @@ import {
   userIsBlock,
   getUserOrder,
 } from "../../store/user/user.action";
-import ToggleSwitch from "../../extra/ToggleSwitch";
 import { connect, useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import Pagination from "../../extra/Pagination";
-import Male from "../../../assets/images/defaultUser.png";
-
 import { getDefaultCurrency } from "../../store/currency/currency.action";
-import Button from "../../extra/Button";
 
 const UserProfile = (props) => {
-  const { userProfile, order, totalOrder } = useSelector((state) => state.user);
+  const { userProfile, order } = useSelector((state) => state.user);
   const { defaultCurrency } = useSelector((state) => state.currency);
   
 

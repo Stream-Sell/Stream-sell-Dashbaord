@@ -9,10 +9,7 @@ import {
   NewCollection,
   outOfStock,
 } from "../../../store/product/product.action";
-import ToggleSwitch from "../../../extra/ToggleSwitch";
 import Table from "../../../extra/Table";
-import Button from "../../../extra/Button";
-import Info from "../../../../assets/images/Info.svg"
 import { getDefaultCurrency } from "../../../store/currency/currency.action";
 import Iconb from "../../../extra/Iconb";
 import InfoOutlined from '@mui/icons-material/InfoOutlined';

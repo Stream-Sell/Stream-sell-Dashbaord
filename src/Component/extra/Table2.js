@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 
 function Table2(props) {
-  const { data, mapData, PerPage = 10, type } = props;
+  const { data, mapData, PerPage = 10 } = props;
 
-  const [sortColumn, setSortColumn] = useState("");
+  const [sortColumn, setSortColumn] = useState(null); // ✅ Added this
   const [sortOrder, setSortOrder] = useState("asc");
   const [visibleCount, setVisibleCount] = useState(PerPage);
 
@@ -25,26 +25,26 @@ function Table2(props) {
   };
 
   const sortedData =
-    data?.length > 0 &&
-    [...data].sort((a, b) => {
-      const valueA = a[sortColumn];
-      const valueB = b[sortColumn];
+    data?.length > 0
+      ? [...data].sort((a, b) => {
+          const valueA = a[sortColumn];
+          const valueB = b[sortColumn];
 
-      if (valueA < valueB) {
-        return sortOrder === "asc" ? -1 : 1;
-      }
-      if (valueA > valueB) {
-        return sortOrder === "asc" ? 1 : -1;
-      }
-      return 0;
-    });
+          if (valueA < valueB) {
+            return sortOrder === "asc" ? -1 : 1;
+          }
+          if (valueA > valueB) {
+            return sortOrder === "asc" ? 1 : -1;
+          }
+          return 0;
+        })
+      : [];
 
   return (
     <>
-      <div className="nprimeMain" style={{ borderRadius: "9px" }}> 
+      <div className="nprimeMain" style={{ borderRadius: "9px" }}>
         <table
           width="100%"
-          
           className="newpt text-center"
           style={{ maxHeight: "600px" }}
         >
@@ -65,7 +65,7 @@ function Table2(props) {
             </tr>
           </thead>
 
-          <tbody >
+          <tbody>
             {sortedData.length > 0 ? (
               sortedData.slice(0, visibleCount).map((i, k) => (
                 <tr key={k}>
@@ -82,7 +82,8 @@ function Table2(props) {
                                 (i[splits[0]][splits[1]] >= 0
                                   ? i[splits[0]][splits[1]]
                                   : "-")
-                              : i[res.body] ?? (i[res.body] >= 0 ? i[res.body] : "-")}
+                              : i[res.body] ??
+                                (i[res.body] >= 0 ? i[res.body] : "-")}
                           </span>
                         )}
                       </td>
@@ -103,13 +104,21 @@ function Table2(props) {
         {/* Buttons */}
         <div className="text-center my-3 d-flex justify-content-center gap-3">
           {sortedData.length > visibleCount && (
-            <button className="myCustomButton " style={{ borderRadius: "5px", width: "100px",height:"30px" }} onClick={handleLoadMore}>
+            <button
+              className="myCustomButton"
+              style={{ borderRadius: "5px", width: "100px", height: "30px" }}
+              onClick={handleLoadMore}
+            >
               Load More
             </button>
           )}
 
           {visibleCount > PerPage && (
-            <button className="myCustomButton" style={{ borderRadius: "5px", width: "100px",height:"30px" }} onClick={handleShowLess}>
+            <button
+              className="myCustomButton"
+              style={{ borderRadius: "5px", width: "100px", height: "30px" }}
+              onClick={handleShowLess}
+            >
               Show Less
             </button>
           )}

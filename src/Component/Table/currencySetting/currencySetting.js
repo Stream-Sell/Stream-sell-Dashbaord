@@ -5,12 +5,9 @@ import { useEffect, useState } from "react";
 import { OPEN_DIALOGUE } from "../../store/dialogue/dialogue.type";
 import ToggleSwitch from "../../extra/ToggleSwitch";
 import dayjs from "dayjs";
-import Pagination from "../../extra/Pagination";
 import { warning } from "../../../util/Alert";
-import EditInfo from "../../../assets/images/Edit.png";
 import "react-loading-skeleton/dist/skeleton.css";
 import CurrencySettingDialog from "./currencySettingDialog";
-import Delete from "../../../assets/images/Delete.svg"
 import { deleteCurrency, enabledDisabled, getCurrency, getDefaultCurrency } from "../../store/currency/currency.action";
 
 import Iconb from "../../extra/Iconb";

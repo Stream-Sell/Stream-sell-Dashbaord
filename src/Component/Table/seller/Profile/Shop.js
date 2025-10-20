@@ -9,7 +9,6 @@ import {
 import { connect, useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { getDefaultCurrency } from "../../../store/currency/currency.action";
-import defaultImage from "../../../../assets/images/default.jpg";
 
 const Shop = (props) => {
   const { sellerProfile, sellerWallet } = useSelector((state) => state.seller);

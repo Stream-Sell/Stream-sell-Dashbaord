@@ -19,9 +19,6 @@ import dayjs from "dayjs";
 import { OPEN_DIALOGUE } from "../../store/dialogue/dialogue.type";
 import FakeReelDialogue from "./FakeReelDialogue";
 import { warning } from "../../../util/Alert";
-import EditInfo from "../../../assets/images/Edit.png";
-import Delete from "../../../assets/images/Delete.svg"
-import Info from "../../../assets/images/Info.svg"
 
 import Iconb from "../../extra/Iconb";
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
@@ -32,7 +29,7 @@ import InfoOutlined from '@mui/icons-material/InfoOutlined';
 const FakeReels = (props) => {
   
 
-  const { dialogue, dialogueType, dialogueData } = useSelector(
+  const { dialogue, dialogueType } = useSelector(
     (state) => state.dialogue
   );
 

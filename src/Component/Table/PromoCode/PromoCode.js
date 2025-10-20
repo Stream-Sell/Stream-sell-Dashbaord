@@ -1,4 +1,4 @@
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Table from "../../extra/Table";
 import Button from "../../extra/Button";
 import Iconb from "../../extra/Iconb";
@@ -11,13 +11,9 @@ import {
   getPromoCode,
   deletePromoCode,
 } from "../../store/PromoCode/promoCode.action";
-import ToggleSwitch from "../../extra/ToggleSwitch";
 import dayjs from "dayjs";
 import PromoDialog from "./PromoDialog";
-import Pagination from "../../extra/Pagination";
-import EditInfo from "../../../assets/images/Edit.png";
 import { warning } from "../../../util/Alert";
-import Delete from "../../../assets/images/Delete.svg"
 
 const PromoCode = (props) => {
   const [page, setPage] = useState(0);

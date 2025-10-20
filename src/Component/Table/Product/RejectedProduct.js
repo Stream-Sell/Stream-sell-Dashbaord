@@ -1,7 +1,6 @@
 import dayjs from "dayjs";
 import React, { useEffect, useState } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
-import $ from "jquery";
 import Button from "../../extra/Button";
 
 import Searching from "../../extra/Searching";

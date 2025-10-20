@@ -1,25 +1,17 @@
-import Title from "../../extra/Title";
 import React, { useState } from "react";
-import ToggleSwitch from "../../extra/ToggleSwitch";
-import { connect, useSelector } from "react-redux";
-import {
-  getSellerProfile,
-  sellerIsBlock,
-} from "../../store/seller/seller.action";
+import { connect } from "react-redux";
 import { useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
 import Shop from "./Profile/Shop";
 import SellerProduct from "./Profile/SellerProduct";
 import Transition from "./Profile/Transition";
 import SellerOrder from "./Profile/SellerOrder";
-import Button from "../../extra/Button";
+
 
 const SellerProfile = () => {
   const [type, setType] = useState(() => {
     const StatusType = sessionStorage.getItem("Shop");
     return StatusType !== null ? StatusType : "Shop";
   });
-  const navigate = useNavigate();
 
   useEffect(() => {
     sessionStorage.setItem("Shop", type);
@@ -138,7 +130,4 @@ const SellerProfile = () => {
   );
 };
 
-export default connect(null, {
-  getSellerProfile,
-  sellerIsBlock,
-})(SellerProfile);
+export default SellerProfile;

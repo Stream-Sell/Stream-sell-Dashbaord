@@ -2,11 +2,8 @@ import dayjs from "dayjs";
 import React, { useEffect, useState } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
 import $ from "jquery";
-import Button from "../../extra/Button";
-import Searching from "../../extra/Searching";
 import {
-  getUpdateProductRequest,
-  productAction,
+  getUpdateProductRequest
 } from "../../store/product/product.action";
 import Table from "../../extra/Table";
 import Pagination from "../../extra/Pagination";

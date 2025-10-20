@@ -12,7 +12,6 @@ import {
   getProductReview,
 } from "../../store/product/product.action";
 import { getDefaultCurrency } from "../../store/currency/currency.action";
-import Pagination from "../../extra/Pagination";
 import formatImageUrl from "../../extra/functions"; // Import your formatting function
 import defaultImage from "../../../assets/images/default.jpg";
 

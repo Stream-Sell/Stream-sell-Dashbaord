@@ -2,16 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteBank, getbank } from "../../store/bank/bank.action";
 import { warning } from "../../../util/Alert";
-import Skeleton from "react-loading-skeleton";
-import { colors } from "../../../util/SkeletonColor";
 import dayjs from "dayjs";
 import Button from "../../extra/Button";
 import { OPEN_DIALOGUE } from "../../store/dialogue/dialogue.type";
 import BankDialog from "./BankDialog";
 import Table from "../../extra/Table";
 import Pagination from "../../extra/Pagination";
-import EditInfo from "../../../assets/images/Edit.png";
-import Delete from "../../../assets/images/Delete.svg"
 
 import Iconb from "../../extra/Iconb";
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';

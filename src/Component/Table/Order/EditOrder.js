@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Button from "../../extra/Button";
 import {
-  CLOSE_DIALOGUE,
-  OPEN_DIALOGUE,
+  CLOSE_DIALOGUE
 } from "../../store/dialogue/dialogue.type";
 import { connect, useDispatch, useSelector } from "react-redux";
 import { orderUpdate } from "../../store/order/order.action";

@@ -59,7 +59,7 @@ function Table(props) {
           </thead>
 
           {/* server side pagination with table */}
-          {type == "server" && (
+          {type === "server" && (
             <>
               <tbody>
                 {sortedData.length > 0 ? (
@@ -114,7 +114,7 @@ function Table(props) {
 
           {/* client side pagination with table */}
 
-          {type == "client" && (
+          {type === "client" && (
             <>
               <tbody>
                 {sortedData.length > 0 ? (

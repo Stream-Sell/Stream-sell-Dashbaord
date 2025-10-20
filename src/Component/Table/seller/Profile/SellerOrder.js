@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
-import Table from "../../../extra/Table";
 import Pagination from "../../../extra/Pagination";
 import { connect, useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import { colors } from "../../../../util/SkeletonColor";
 import { getSellerOrder } from "../../../store/seller/seller.action";
-import Skeleton from "react-loading-skeleton";
 import Button from "../../../extra/Button";
 import Info from "../../../../assets/images/Info.svg"
 import { getDefaultCurrency } from "../../../store/currency/currency.action";

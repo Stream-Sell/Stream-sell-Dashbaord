@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Button from "../../extra/Button";
 import FaqDialog from "./FaqDialog";
 import { OPEN_DIALOGUE } from "../../store/dialogue/dialogue.type";
 import { connect, useDispatch, useSelector } from "react-redux";

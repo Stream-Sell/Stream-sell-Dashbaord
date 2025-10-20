@@ -17,11 +17,9 @@ import { connect, useDispatch, useSelector } from "react-redux";
 // chart
 import { Chart as ChartJS, registerables } from "chart.js";
 import { Line } from "react-chartjs-2";
-
-import Table from "../../extra/Table";
 import Table2 from "../../extra/Table2";
 import { useNavigate } from "react-router-dom";
-import { DateRangePicker } from "react-date-range";
+
 
 import DateRangePicker1 from "react-bootstrap-daterangepicker";
 import DateRangePicker2 from "react-bootstrap-daterangepicker";

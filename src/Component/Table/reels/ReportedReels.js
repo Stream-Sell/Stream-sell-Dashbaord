@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 import Searching from "../../extra/Searching";
 import Skeleton from "react-loading-skeleton";
 import { colors } from "../../../util/SkeletonColor";
-import dayjs from "dayjs";
 import { getReportedReel } from "../../store/reels/reels.action";
 
 const ReportedReels = (props) => {

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Table from "../../extra/Table";
-import Button from "../../extra/Button";
 import Iconb from "../../extra/Iconb";
 import { connect, useDispatch, useSelector } from "react-redux";
 import { getUser, userIsBlock } from "../../store/user/user.action";

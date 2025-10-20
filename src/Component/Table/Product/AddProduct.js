@@ -11,27 +11,14 @@ import { updateProduct } from "../../store/product/product.action";
 import { createFakeProduct, updateFakeProduct } from "../../store/fakeProduct/fakeProduct.action";
 import ReactDropzone from "react-dropzone";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useTheme } from "@mui/material/styles";
-import Box from "@mui/material/Box";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-// import Select from "@mui/material/Select";
-import Chip from "@mui/material/Chip";
 import { getFakeSellerDropDown } from "../../store/fake Seller/fakeSeller.action";
-import { getDefaultCurrency } from "../../store/currency/currency.action";
 import { baseURL } from "../../../util/config";
 import defaultImage from "../../../assets/images/default.jpg";
-// import CreatableSelect from 'react-select/creatable';
 import { parse, set } from "date-fns";
 import formatImageUrl from "../../extra/functions";
-// import defaultImage from "../../../assets/images/default.jpg";
 import Multiselect from "multiselect-react-dropdown";
 import CancelIcon from "@mui/icons-material/Cancel";
 
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
 
 const AddProduct = (props) => {
   
@@ -78,9 +65,6 @@ const AddProduct = (props) => {
     selectedItemsErrors: {},
   });
 
-  useEffect(() => {
-    dispatch(getDefaultCurrency());
-  }, [])
 
   useEffect(() => {
     setAttrData(attribute);

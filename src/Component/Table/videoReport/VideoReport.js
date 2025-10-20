@@ -2,9 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Skeleton from 'react-loading-skeleton';
 import "react-loading-skeleton/dist/skeleton.css";
 import { colors } from "../../../util/SkeletonColor";
-import { baseURL } from '../../../util/config';
 import Table from '../../extra/Table';
-import Button from '../../extra/Button';
 import { deleteVideoReport, getVideoReport, resolveReport } from '../../store/videoReport/videoReport.action';
 import { useDispatch, useSelector } from 'react-redux';
 import Pagination from '../../extra/Pagination';

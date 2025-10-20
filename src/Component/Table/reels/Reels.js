@@ -7,17 +7,12 @@ import { useNavigate } from "react-router-dom";
 import { getReel, deleteReel } from "../../store/reels/reels.action";
 import { useEffect } from "react";
 import Searching from "../../extra/Searching";
-import Button from "../../extra/Button";
 import Skeleton from "react-loading-skeleton";
 import { colors } from "../../../util/SkeletonColor";
 import "react-loading-skeleton/dist/skeleton.css";
 import dayjs from "dayjs";
 import { warning } from "../../../util/Alert";
-import Info from "../../../assets/images/Info.svg";
-import Delete from "../../../assets/images/Delete.svg"
-
 import Iconb from "../../extra/Iconb";
-import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import DeleteIcon from '@mui/icons-material/Delete';
 import InfoOutlined from '@mui/icons-material/InfoOutlined';
 

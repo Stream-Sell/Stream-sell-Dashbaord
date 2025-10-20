@@ -3,7 +3,6 @@ import Button from '../../extra/Button';
 import Input from '../../extra/Input';
 import { CLOSE_DIALOGUE } from '../../store/dialogue/dialogue.type';
 import { useDispatch, useSelector } from 'react-redux';
-import { add } from 'date-fns';
 import { addReportReason, updateReportReason } from '../../store/reportReason/reportReason.action';
 
 const ReportReasonDialog = () => {

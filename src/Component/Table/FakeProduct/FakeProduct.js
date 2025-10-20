@@ -10,9 +10,6 @@ import "react-loading-skeleton/dist/skeleton.css";
 import { useNavigate } from "react-router-dom";
 import { connect, useDispatch, useSelector } from "react-redux";
 import { warning } from "../../../util/Alert";
-import EditInfo from "../../../assets/images/Edit.png";
-import Delete from "../../../assets/images/Delete.svg"
-import Info from "../../../assets/images/Info.svg"
 import { getFakeProduct, deleteFakeProduct, FakeNewCollection, FakeOutOfStock } from "../../store/fakeProduct/fakeProduct.action";
 import { getDefaultCurrency } from "../../store/currency/currency.action";
 

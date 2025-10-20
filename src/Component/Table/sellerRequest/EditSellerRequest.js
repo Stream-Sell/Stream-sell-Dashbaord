@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import "animate.css";
 import Input from "../../extra/Input";
 import Button from "../../extra/Button";
-import { connect, useDispatch, useSelector } from "react-redux";
+import { connect } from "react-redux";
 import { useEffect } from "react";
-import { CLOSE_DIALOGUE } from "../../store/dialogue/dialogue.type";
 import { sellerRequestUpdate } from "../../store/sellerRequest/sellerRequest.action";
+import { useDispatch } from "react-redux";
 import $ from "jquery";
 import male from "../../../assets/images/g-7.png";
 
@@ -65,7 +65,7 @@ const EditSellerRequest = (props) => {
     branchName: "",
   });
 
-  const dispatch = useDispatch();
+
 
   useEffect(() => {
     if (state) {
@@ -410,7 +410,7 @@ const EditSellerRequest = (props) => {
                           type={`radio`}
                           value={`male`}
                           checked={
-                            (gender == "male" || gender == "Male") && true
+                            (gender === "male" || gender === "Male") && true
                           }
                           newClass={`me-3`}
                           onChange={(e) => {
@@ -435,7 +435,7 @@ const EditSellerRequest = (props) => {
                           type={`radio`}
                           value={`female`}
                           checked={
-                            (gender == "female" || gender == "Female") && true
+                            (gender === "female" || gender === "Female") && true
                           }
                           onChange={(e) => {
                             setGender(e.target.value);

@@ -106,7 +106,7 @@ export const NewCollection = (product, collection) => (dispatch) => {
         setToast(
           "success",
           `${collection?.seller?.firstName} Is ${
-            res.data.product.isNewCollection == true
+            res.data.product.isNewCollection === true
               ? "Add New Collection"
               : "Remove New Collection"
           } Successfully!`
@@ -133,7 +133,7 @@ export const outOfStock = (product, stock) => (dispatch) => {
         setToast(
           "success",
           `${stock?.seller?.firstName} Is ${
-            stock.isOutOfStock == true
+            stock.isOutOfStock === true
               ? "Instock Product"
               : "Out Of Stock Product"
           } Successfully!`

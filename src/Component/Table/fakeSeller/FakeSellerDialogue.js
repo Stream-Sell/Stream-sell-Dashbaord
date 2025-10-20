@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Button from "../../extra/Button";
-import { CLOSE_DIALOGUE } from "../../store/dialogue/dialogue.type";
 import Input from "../../extra/Input";
-import { connect, useDispatch, useSelector } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 
 import {
   createFakeSeller,
@@ -500,7 +499,7 @@ const FakeSellerDialog = (props) => {
                         id={`male`}
                         type={`radio`}
                         value={`male`}
-                        checked={(gender == "male" || gender == "Male") && true}
+                        checked={(gender === "male" || gender === "Male") && true}
                         newClass={`me-3`}
                         onChange={(e) => {
                           setGender(e.target.value);
@@ -524,7 +523,7 @@ const FakeSellerDialog = (props) => {
                         type={`radio`}
                         value={`female`}
                         checked={
-                          (gender == "female" || gender == "Female") && true
+                          (gender === "female" || gender === "Female") && true
                         }
                         onChange={(e) => {
                           setGender(e.target.value);

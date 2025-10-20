@@ -1,7 +1,6 @@
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Table from "../../extra/Table";
 import Button from "../../extra/Button";
-import Title from "../../extra/Title";
 import { connect, useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import {
@@ -10,7 +9,6 @@ import {
   sellerIsLive,
   setOfflineStatus,
 } from "../../store/fake Seller/fakeSeller.action";
-import ToggleSwitch from "../../extra/ToggleSwitch";
 import dayjs from "dayjs";
 import Pagination from "../../extra/Pagination";
 import Searching from "../../extra/Searching";
@@ -21,14 +19,9 @@ import FakeSellerDialogue from "./FakeSellerDialogue";
 import "react-loading-skeleton/dist/skeleton.css";
 import Skeleton from "react-loading-skeleton";
 import { colors } from "../../../util/SkeletonColor";
-import EditInfo from "../../../assets/images/Edit.png";
-import Delete from "../../../assets/images/Delete.svg"
-
 import Iconb from "../../extra/Iconb";
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Tv } from "lucide-react";
-import OnLiveDialogue from "./LiveSellerDialogue";
 import LiveSellerDialogue from "./LiveSellerDialogue";
 
 const FakeSeller = (props) => {

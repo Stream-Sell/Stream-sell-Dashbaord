@@ -4,8 +4,6 @@ import {
 } from "../Component/store/dialogue/dialogue.type";
 import { baseURL, secretKey } from "./config";
 import store from "../Component/store/Provider";
-import { token } from "../Component/Pages/Admin";
-import axios from "axios";
 
 export const openSpinner = () => {
   return store.dispatch({ type: LOADER_OPEN });

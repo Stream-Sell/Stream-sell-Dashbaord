@@ -1,18 +1,12 @@
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Table from "../../extra/Table";
-import Button from "../../extra/Button";
-import Title from "../../extra/Title";
 import { connect, useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { getLiveSeller } from "../../store/seller/seller.action";
-import ToggleSwitch from "../../extra/ToggleSwitch";
-import dayjs from "dayjs";
-import Pagination from "../../extra/Pagination";
 import Searching from "../../extra/Searching";
 import Skeleton from "react-loading-skeleton";
 import { colors } from "../../../util/SkeletonColor";
 import "react-loading-skeleton/dist/skeleton.css";
-import Info from "../../../assets/images/Info.svg"
 
 import InfoOutlined from '@mui/icons-material/InfoOutlined';
 import Iconb from "../../extra/Iconb";

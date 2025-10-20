@@ -29,16 +29,6 @@ export const subCategoryReducer = (state = initialState, action) => {
           : [action?.payload],
       };
     case ActionType.UPDATE_SUB_CATEGORY:
-      const transformedData2 = {
-        subCategoryId: action.payload.data._id,
-        name: action.payload.data.name,
-        image: action.payload.data.image,
-        category: action.payload.data.category.name,
-        categoryId: action.payload.data.category._id,
-        sameSubcategoryProductCount: 0,
-      };
-
-
       return {
         ...state,
         categoryWiseSubCategory: state.categoryWiseSubCategory.map((data) =>

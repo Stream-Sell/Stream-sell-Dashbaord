@@ -406,7 +406,7 @@ const AddSeller = (props) => {
                           type={`radio`}
                           value={`male`}
                           checked={
-                            (gender == "male" || gender == "Male") && true
+                            (gender === "male" || gender === "Male") && true
                           }
                           newClass={`me-3`}
                           onChange={(e) => {
@@ -431,7 +431,7 @@ const AddSeller = (props) => {
                           type={`radio`}
                           value={`female`}
                           checked={
-                            (gender == "female" || gender == "Female") && true
+                            (gender === "female" || gender === "Female") && true
                           }
                           onChange={(e) => {
                             setGender(e.target.value);

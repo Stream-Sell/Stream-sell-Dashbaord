@@ -14,7 +14,6 @@ import Pagination from "../../extra/Pagination";
 
 import Skeleton from "react-loading-skeleton";
 import { colors } from "../../../util/SkeletonColor";
-import EditInfo from "../../../assets/images/Edit.png";
 import "react-loading-skeleton/dist/skeleton.css";
 import defaultImage from "../../../assets/images/default.jpg";
 

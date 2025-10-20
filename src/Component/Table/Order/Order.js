@@ -1,7 +1,5 @@
-import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
-import Table from "../../extra/Table";
-import Button from "../../extra/Button";
-import Title from "../../extra/Title";
+import {useLocation, useNavigate } from "react-router-dom";
+
 import { connect, useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { getOrder } from "../../store/order/order.action";
@@ -10,23 +8,12 @@ import Pagination from "../../extra/Pagination";
 import Searching from "../../extra/Searching";
 import { OPEN_DIALOGUE } from "../../store/dialogue/dialogue.type";
 import EditOrder from "./EditOrder";
-import Skeleton from "react-loading-skeleton";
-import { colors } from "../../../util/SkeletonColor";
 import "react-loading-skeleton/dist/skeleton.css";
-import EditInfo from "../../../assets/images/Edit.png";
-import { ReactComponent as Cancel } from "../../../assets/images/cancel.svg"
-import { ReactComponent as Delievered } from "../../../assets/images/deliever.svg";
-import { ReactComponent as Edit } from "../../../assets/images/edit.svg";
 import { getDefaultCurrency } from "../../store/currency/currency.action";
 import Iconb from "../../extra/Iconb";
-import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
-import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 // import CancelIcon from '@mui/icons-material/Cancel';
-import GavelIcon from '@mui/icons-material/Gavel';
-import InfoOutlined from '@mui/icons-material/InfoOutlined';
 import formatImageUrl from "../../extra/functions";
 import defaultImage from "../../../assets/images/default.jpg";
-import { CancelOutlined } from "@mui/icons-material";
 import { getSetting } from "../../store/setting/setting.action";
 import { ReactComponent as PanddingIcon } from "../../../assets/images/pendingStatus.svg";
 import { ReactComponent as ConfirmedIcon } from "../../../assets/images/confirmed.svg";

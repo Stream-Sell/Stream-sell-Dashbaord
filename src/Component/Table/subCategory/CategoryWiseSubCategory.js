@@ -16,8 +16,6 @@ import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
 import { colors } from "../../../util/SkeletonColor";
-import EditInfo from "../../../assets/images/Edit.png";
-import Delete from "../../../assets/images/Delete.svg"
 
 import Iconb from "../../extra/Iconb";
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';

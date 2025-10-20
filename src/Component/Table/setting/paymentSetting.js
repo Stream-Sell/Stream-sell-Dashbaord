@@ -10,7 +10,7 @@ import {
 import { getWithdraw } from "../../store/withdraw/withdraw.action";
 import Button from "../../extra/Button";
 
-import { set } from "date-fns";
+
 
 const PaymentSetting = (props) => {
   const { setting } = useSelector((state) => state.setting);
@@ -21,8 +21,8 @@ const PaymentSetting = (props) => {
   // box 1
 
   // box 3
-  const [cancelOrderCharges, setCancelOrderCharges] = useState();
-  const [adminCommissionCharges, setAdminCommissionCharges] = useState();
+  const [, setCancelOrderCharges] = useState();
+  const [, setAdminCommissionCharges] = useState();
   // box 4
   const [razorPayId, setRazorPayId] = useState("");
   const [razorSecretKey, setRazorSecretKey] = useState("");
@@ -58,8 +58,8 @@ const PaymentSetting = (props) => {
   }, [dispatch]);
 
   useEffect(() => {
-    setCancelOrderCharges(setting?.cancelOrderCharges);
-    setAdminCommissionCharges(setting?.adminCommissionCharges);
+    // setCancelOrderCharges(setting?.cancelOrderCharges);
+    // setAdminCommissionCharges(setting?.adminCommissionCharges);
     // box 4
     setRazorPayId(setting?.razorPayId);
     setRazorSecretKey(setting?.razorSecretKey);

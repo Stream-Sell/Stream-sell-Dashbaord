@@ -2,23 +2,18 @@ import React, { useEffect, useState } from 'react'
 import Table from '../../extra/Table'
 import Pagination from '../../extra/Pagination'
 import Iconb from '../../extra/Iconb';
-import { InfoOutlined } from '@mui/icons-material';
 import Skeleton from 'react-loading-skeleton';
 import "react-loading-skeleton/dist/skeleton.css";
 import { colors } from "../../../util/SkeletonColor";
 import dayjs from "dayjs";
-import DeleteIcon from '@mui/icons-material/Delete';
 import DateRangePicker1 from "react-bootstrap-daterangepicker";
 import { acceptWithdrawalRequest, declineWithdrawalRequest, getWithdrawalRequest } from '../../store/redeem/redeem.action';
 import { useDispatch, useSelector } from 'react-redux';
-import { use } from 'react';
 import Button from '../../extra/Button';
 import defaultImage from "../../../assets/images/default.jpg";
-import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import { warningAccept } from '../../../util/Alert';
 import { acceptSellerRequest } from '../../store/sellerRequest/sellerRequest.action';
 import { Box, Modal, Typography } from "@mui/material";
-import Input from "../../extra/Input";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CancelIcon from "@mui/icons-material/Cancel";
 

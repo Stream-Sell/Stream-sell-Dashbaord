@@ -11,15 +11,10 @@ import { OPEN_DIALOGUE } from "../../store/dialogue/dialogue.type";
 import CategoryDialog from "./CategoryDialog";
 import { warning } from "../../../util/Alert";
 import { useNavigate } from "react-router-dom";
-import Pagination from "../../extra/Pagination";
-
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import Skeleton from "react-loading-skeleton";
 import { colors } from "../../../util/SkeletonColor";
 import { useState } from "react";
-import EditInfo from "../../../assets/images/Edit.png";
-import Delete from "../../../assets/images/Delete.svg"
-import Info from "../../../assets/images/Info.svg"
 import Iconb from "../../extra/Iconb";
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import DeleteIcon from '@mui/icons-material/Delete';

@@ -36,13 +36,11 @@ export const handleToggleSwitch = (id, type, setting) => (dispatch) => {
   axios
     .patch(`setting/handleSwitch?settingId=${id}&type=${type}`)
     .then((res) => {
-      
       if (res.data.status === true) {
         dispatch({
           type: ActionType.HANDLE_TOGGLE_SWITCH,
           payload: { setting: res.data.setting, id },
         });
-        console.log("type", type);
         if (type === "productRequest") {
           setting.isAddProductRequest === true
             ? setToast(
@@ -77,7 +75,7 @@ export const handleToggleSwitch = (id, type, setting) => (dispatch) => {
                 `Fake Data Switch On Successfully!`
               );
         }
-        
+
       } else {
         setToast("error", res.data.message);
       }

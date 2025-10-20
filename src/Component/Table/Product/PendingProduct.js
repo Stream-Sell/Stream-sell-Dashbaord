@@ -1,7 +1,6 @@
 import dayjs from "dayjs";
 import React, { useEffect, useState } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
-import $ from "jquery";
 import Button from "../../extra/Button";
 
 import Searching from "../../extra/Searching";
@@ -20,8 +19,6 @@ import { getDefaultCurrency } from "../../store/currency/currency.action";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CancelIcon from "@mui/icons-material/Cancel";
 import Iconb from "../../extra/Iconb";
-import DeleteIcon from '@mui/icons-material/Delete';
-import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 
 
 

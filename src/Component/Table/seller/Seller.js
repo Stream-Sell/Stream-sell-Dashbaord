@@ -1,7 +1,5 @@
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Table from "../../extra/Table";
-import Button from "../../extra/Button";
-import Title from "../../extra/Title";
 import { connect, useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { getSeller, sellerIsBlock } from "../../store/seller/seller.action";
@@ -14,12 +12,9 @@ import SellerNotification from "./SellerNotification";
 import Skeleton from "react-loading-skeleton";
 import { colors } from "../../../util/SkeletonColor";
 import "react-loading-skeleton/dist/skeleton.css";
-import EditInfo from "../../../assets/images/Edit.png";
-import Info from "../../../assets/images/Info.svg"
 import Iconb from "../../extra/Iconb";
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import NotificationsNoneRoundedIcon from '@mui/icons-material/NotificationsNoneRounded';
-import { warning } from "../../../util/Alert";
 
 import InfoOutlined from '@mui/icons-material/InfoOutlined';
 

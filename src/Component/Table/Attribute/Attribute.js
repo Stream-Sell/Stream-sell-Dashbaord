@@ -13,8 +13,6 @@ import {
   deleteAttribute,
   getAllSubcategory,
 } from "../../store/attribute/attribute.action";
-import EditInfo from "../../../assets/images/Edit.png";
-import Delete from "../../../assets/images/Delete.svg"
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Select from 'react-select';
