@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { resetPassword } from "../store/admin/admin.action";
-import { useParams } from "react-router-dom";
 import Input from "../extra/Input";
 import Button from "../extra/Button";
 

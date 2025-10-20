@@ -65,7 +65,7 @@ const Admin = ({ isAuthenticated }) => {
 
   console.log("location", location);
 
-  const { isAuth } = useSelector((state) => state.admin);
+
 
   useEffect(() => {
     if (

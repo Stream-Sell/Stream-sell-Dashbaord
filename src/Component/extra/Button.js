@@ -12,13 +12,14 @@ const Button = (props) => {
         <>
         {
           isImage ?
-          <img 
+          <img
           src={btnIcon}
+          alt="button icon"
           style={{
            height: isDeleted ? 25 : 20,
            width:20,
           }}
-          /> 
+          />
           :
           <i className={`${btnIcon}`} style={{color:"white"}}></i>
         }

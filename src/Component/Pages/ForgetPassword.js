@@ -15,7 +15,7 @@ const Login = (props) => {
 
   useEffect(() => {
     isAuth && navigate("/admin");
-  }, [isAuth]);
+  }, [isAuth, navigate]);
 
   // const [email, setEmail] = useState("");
   // const [password, setPassword] = useState("");

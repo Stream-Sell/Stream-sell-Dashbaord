@@ -23,7 +23,7 @@ const VideoReport = () => {
 
     useEffect(() => {
         dispatch(getVideoReport(type, currentPage, rowsPerPage));
-    }, [type, currentPage, rowsPerPage])
+    }, [dispatch, type, currentPage, rowsPerPage])
 
     useEffect(() => {
         const timer = setTimeout(() => {
