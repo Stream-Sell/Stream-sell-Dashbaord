@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import {
-  Outlet,
   Route,
   Routes,
   useLocation,
@@ -29,7 +28,6 @@ import PromoCode from "../Table/PromoCode/PromoCode";
 import FaQ from "../Table/FAQ/Faq";
 import Withdraw from "../Table/withdraw/Withdraw";
 import Attribute from "../Table/Attribute/Attribute";
-import Redeem from "../Table/redeem/Redeem";
 import CategoryWiseSubCategory from "../Table/subCategory/CategoryWiseSubCategory";
 import PendingProduct from "../Table/Product/PendingProduct";
 import ApprovedProduct from "../Table/Product/ApprovedProduct";
@@ -42,7 +40,6 @@ import UpdateProductRejected from "../Table/Product/UpdateProductRejected";
 import SellerOrderDetail from "../Table/seller/Profile/SellerOrderDetail";
 import LiveSeller from "../Table/liveSeller/LiveSeller";
 import LiveSellerProduct from "../Table/liveSeller/LiveSellerProduct";
-import AdminWallet from "../Table/admin/AdminWallet";
 // import EditSellerR from "../Table/sellerRequest/EditSellerR";
 import EditSellerRequest from "../Table/sellerRequest/EditSellerRequest";
 import FakeSeller from "../Table/fakeSeller/FakeSeller";
@@ -58,7 +55,6 @@ import CurrencySetting from "../Table/currencySetting/currencySetting";
 import AdminEarning from "../Table/admin/AdminEarning";
 import AdminWithdrawal from "../Table/AdminWithdrawal/AdminWithdrawal";
 import ReportReason from "../Table/reportReason/ReportReason";
-import { Video } from "lucide-react";
 import VideoReport from "../Table/videoReport/VideoReport";
 
 export const token = sessionStorage.getItem("token");
@@ -73,10 +69,10 @@ const Admin = ({ isAuthenticated }) => {
 
   useEffect(() => {
     if (
-      location.pathname == "/" ||
-      location.pathname == "/admin" ||
-      location.pathname == "" ||
-      location.pathname == "/admin/"
+      location.pathname === "/" ||
+      location.pathname === "/admin" ||
+      location.pathname === "" ||
+      location.pathname === "/admin/"
     ) {
       navigate("/admin/dashboard");
     }
