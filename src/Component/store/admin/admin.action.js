@@ -13,7 +13,7 @@ export const signupAdmin = (signup) => (dispatch) => {
         dispatch({ type: ActionType.SIGNUP_ADMIN });
         setToast("success", "Signup Successfully!");
         setTimeout(() => {
-          window.location.href = "/adminLogin";
+          window.location.href = "/login";
         }, 3000);
       } else {
         setToast("error", res.data.message);
