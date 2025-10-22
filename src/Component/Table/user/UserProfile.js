@@ -79,7 +79,7 @@ const UserProfile = (props) => {
             <button
               onClick={() => navigate(-1)}
               className="btn rounded-pill px-4 mb-4"
-              style={{ border: "1px solid #b93160", marginLeft: "8px" , backgroundColor: "#b93160", color: "#fff"}}
+              style={{ border: "1px solid #5C3AEB", marginLeft: "8px" , backgroundColor: "#5C3AEB", color: "#fff"}}
             >
               ← Back
             </button>

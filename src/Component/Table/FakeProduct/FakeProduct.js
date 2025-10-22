@@ -359,7 +359,7 @@ const FakeProduct = (props) => {
                         // navigate("/admin/addProduct");
                         navigate("/admin/fake/addProduct");
                       }}
-                      style={{ borderRadius: "5px", padding: "8px 32px", background: "#b93160" }}
+                      style={{ borderRadius: "5px", padding: "8px 32px", background: "#5C3AEB" }}
                     />
                   </div>
 

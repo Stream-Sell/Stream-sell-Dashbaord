@@ -32,7 +32,7 @@ const PublicRoute = () => {
 
   // Whitelist the public pages depending on registration state
   const allowedWhenRegistered = ["/login", "/forgotPassword", "/changePassword"];
-  const allowedWhenUnregistered = ["/register"];
+  const allowedWhenUnregistered = ["/login", "/forgotPassword"];
 
   const allowed = isRegistered ? allowedWhenRegistered : allowedWhenUnregistered;
 

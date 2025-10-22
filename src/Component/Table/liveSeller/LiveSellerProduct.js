@@ -63,7 +63,7 @@ const LiveSellerProduct = (props) => {
                         readonly={true}
                         allowFraction
                       /> */}
-                      <h6 className="" style={{ color: "#B93160" , fontWeight: "500", marginTop: "7px" }}>
+                      <h6 className="" style={{ color: "#5C3AEB" , fontWeight: "500", marginTop: "7px" }}>
                         $ {product?.price}
                       </h6>
                     </div>

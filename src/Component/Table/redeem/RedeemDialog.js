@@ -119,7 +119,7 @@ const RedeemDialog = (props) => {
                 padding: "10px",
                 width: "250px",
                 backgroundColor: "#f7dada",
-                color: " #B93160",
+                color: " #5C3AEB",
                 cursor: "pointer",
               }}
               onClick={handleSubmit}

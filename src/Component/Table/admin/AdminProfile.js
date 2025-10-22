@@ -143,7 +143,7 @@ const AdminProfile = () => {
                         height: 120,
                         borderRadius: "50%",
                         objectFit: "cover",
-                        border: "2px solid #b93160",
+                        border: "2px solid #5C3AEB",
                       }}
                     />
                     <label
@@ -158,7 +158,7 @@ const AdminProfile = () => {
                   
                     <button
                       className="btn btn-sm btn-primary mt-2 text-uppercase"
-                      style={{ backgroundColor: "#b93160", border: "none" }}
+                      style={{ backgroundColor: "#5C3AEB", border: "none" }}
                       onClick={handleChangeImage}
                     >
                       Upload Image
@@ -203,7 +203,7 @@ const AdminProfile = () => {
                       btnColor="btn themeBtn px-4 py-1 "
                       style={{
                         borderRadius: "6px",
-                        backgroundColor: "#b93160",
+                        backgroundColor: "#5C3AEB",
                         color: "#fff",
                       }}
                       onClick={handleSubmitEmail}
@@ -275,7 +275,7 @@ const AdminProfile = () => {
                   <div className="d-flex gap-2">
                     <button
                       className="btn themeBtn text-light px-4 py-1 "
-                      style={{ borderRadius: "6px", backgroundColor: "#b93160" }}
+                      style={{ borderRadius: "6px", backgroundColor: "#5C3AEB" }}
                       onClick={handleChangePassword}
                     >
                       Update Password

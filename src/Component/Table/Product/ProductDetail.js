@@ -71,7 +71,7 @@ const ProductDetail = (props) => {
           <button
             onClick={() => navigate(-1)}
             className="btn rounded-pill px-4 mb-4"
-            style={{ border: "1px solid #b93160", marginLeft: "10px", backgroundColor: "#b93160", color: "white" }}
+            style={{ border: "1px solid #5C3AEB", marginLeft: "10px", backgroundColor: "#5C3AEB", color: "white" }}
           >
             ← Back
           </button>
@@ -112,7 +112,7 @@ const ProductDetail = (props) => {
                             transition: "border 0.1s ease-in"
                           }}
 
-                          onMouseOver={(e) => (e.currentTarget.style.border = "2px solid #b93160")}
+                          onMouseOver={(e) => (e.currentTarget.style.border = "2px solid #5C3AEB")}
                           onMouseOut={(e) => (e.currentTarget.style.border = "2px solid #ccc")}
 
                         />
@@ -412,7 +412,7 @@ const ProductDetail = (props) => {
               <div className=" py-4">
                 <div className="d-flex align-items-center justify-content-between mb-4">
                   <h5 className="mb-0 fw-bold">Customer Reviews</h5>
-                  <span className="" style={{ fontSize: "14px" , backgroundColor: "#b93160" , color: "white" , padding: "4px 10px" , borderRadius: "5px" }}>{review?.length || 0} Reviews</span>
+                  <span className="" style={{ fontSize: "14px" , backgroundColor: "#5C3AEB" , color: "white" , padding: "4px 10px" , borderRadius: "5px" }}>{review?.length || 0} Reviews</span>
                 </div>
 
                 {review?.length > 0 ? (

@@ -1,10 +1,14 @@
-# TODO: Fix CI Build Errors
+# Update Attribute Table and Dialog to Match Category Design
 
 ## Tasks
-- [x] Fix src/Component/Pages/Admin.js: Remove unused isAuth variable
-- [x] Fix src/Component/Pages/ChangePassword.js: Remove unused useParams import
-- [x] Fix src/Component/Pages/ForgetPassword.js: Add navigate to useEffect dependencies
-- [x] Fix src/Component/Table/videoReport/VideoReport.js: Add dispatch to useEffect dependencies
-- [x] Fix src/Component/extra/Button.js: Add alt prop to img element
-- [x] Run build to verify fixes
-- [x] Disable ESLint during build to avoid warnings
+- [x] Update Attribute.js to match Category.js structure and styling
+- [ ] Update AttributeDialog.js to match CategoryDialog.js structure and styling
+  - [ ] Change max-width from 600px to 500px
+  - [ ] Replace <style jsx> block with CategoryDialog's CSS
+  - [ ] Update header title to "Add Attribute" for new items
+  - [ ] Change submit button text to "Create" for new items
+  - [ ] Update Button components to use btnName and btnColor props
+- [x] Adjust table columns in Attribute.js for consistent text colors and badges
+- [x] Integrate filters (subcategory and field type) into the new design
+- [x] Move Add button to header like in Category
+- [ ] Test the updated components

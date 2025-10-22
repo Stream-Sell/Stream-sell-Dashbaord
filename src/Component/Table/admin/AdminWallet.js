@@ -126,7 +126,7 @@ const AdminWallet = (props) => {
         data: dataTotal,
         fill: true,
         backgroundColor: "rgba(185,49,96,0.24)",
-        borderColor: "#B93160",
+        borderColor: "#5C3AEB",
         lineTension: 0.5,
         pointBorderWidth: 2,
       },
@@ -211,7 +211,7 @@ const AdminWallet = (props) => {
                     {/* Use Bootstrap Icon */}
                     <i
                       className="bi bi-currency-rupee"
-                      style={{ color: "#b93160", fontSize: "24px" }}
+                      style={{ color: "#5C3AEB", fontSize: "24px" }}
                     ></i>
                   </div>
 
@@ -230,7 +230,7 @@ const AdminWallet = (props) => {
                     <h1
                       style={{
                         margin: 0,
-                        color: "#b93160",
+                        color: "#5C3AEB",
                         fontSize: "24px",
                         fontWeight: "700",
                       }}
@@ -263,7 +263,7 @@ const AdminWallet = (props) => {
 
                     <i
                       className="bi bi-cash"
-                      style={{ color: "#b93160", fontSize: "24px" }}
+                      style={{ color: "#5C3AEB", fontSize: "24px" }}
                     ></i>
                   </div>
 
@@ -282,7 +282,7 @@ const AdminWallet = (props) => {
                     <h1
                       style={{
                         margin: 0,
-                        color: "#b93160",
+                        color: "#5C3AEB",
                         fontSize: "24px",
                         fontWeight: "700",
                       }}
@@ -317,7 +317,7 @@ const AdminWallet = (props) => {
 
                     <i
                       className="bi bi-percent"
-                      style={{ color: "#b93160", fontSize: "24px" }}
+                      style={{ color: "#5C3AEB", fontSize: "24px" }}
                     ></i>
                   </div>
 
@@ -336,7 +336,7 @@ const AdminWallet = (props) => {
                     <h1
                       style={{
                         margin: 0,
-                        color: "#b93160",
+                        color: "#5C3AEB",
                         fontSize: "24px",
                         fontWeight: "700",
                       }}
@@ -370,7 +370,7 @@ const AdminWallet = (props) => {
 
                     <i
                       className="bi bi-calendar-day"
-                      style={{ color: "#b93160", fontSize: "24px" }}
+                      style={{ color: "#5C3AEB", fontSize: "24px" }}
                     ></i>
                   </div>
 
@@ -389,7 +389,7 @@ const AdminWallet = (props) => {
                     <h1
                       style={{
                         margin: 0,
-                        color: "#b93160",
+                        color: "#5C3AEB",
                         fontSize: "24px",
                         fontWeight: "700",
                       }}
@@ -423,7 +423,7 @@ const AdminWallet = (props) => {
                     {/* Example: Calendar month icon for "Monthly Earning" */}
                     <i
                       className="bi bi-calendar-month"
-                      style={{ color: "#b93160", fontSize: "24px" }}
+                      style={{ color: "#5C3AEB", fontSize: "24px" }}
                     ></i>
                   </div>
 
@@ -442,7 +442,7 @@ const AdminWallet = (props) => {
                     <h1
                       style={{
                         margin: 0,
-                        color: "#b93160",
+                        color: "#5C3AEB",
                         fontSize: "24px",
                         fontWeight: "700",
                       }}
@@ -476,7 +476,7 @@ const AdminWallet = (props) => {
                     {/* Example: Calendar month icon for "Monthly Earning" */}
                     <i
                       className="bi bi-calendar-month"
-                      style={{ color: "#b93160", fontSize: "24px" }}
+                      style={{ color: "#5C3AEB", fontSize: "24px" }}
                     ></i>
                   </div>
 
@@ -495,7 +495,7 @@ const AdminWallet = (props) => {
                     <h1
                       style={{
                         margin: 0,
-                        color: "#b93160",
+                        color: "#5C3AEB",
                         fontSize: "24px",
                         fontWeight: "700",
                       }}

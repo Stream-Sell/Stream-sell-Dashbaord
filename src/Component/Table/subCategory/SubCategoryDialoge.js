@@ -100,7 +100,7 @@ const SubCategoryDialoge = (props) => {
             <div className="col-12">
               <label className="styleForTitle mb-2" 
               style={{
-                color : "#b93160"
+                color : "#5C3AEB"
               }}>Category</label>
 
               <select

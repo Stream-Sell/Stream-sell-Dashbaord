@@ -81,7 +81,6 @@ const Sidebar = () => {
     },
     {
       name: "Product",
-      // path: "/admin/product",
       iconName: "ShoppingBasket",
       subMenu: [
         {
@@ -96,8 +95,6 @@ const Sidebar = () => {
           subPath: "/admin/fakeproduct",
           subPath2: "/admin/fake/productDetail",
           subPath3: "/admin/fake/addProduct",
-          // subPath4: "/admin/addProduct",
-          // subPath4: "/admin/addProduct",
           onClick2: handleCloseSideBar,
         },
       ],
@@ -120,14 +117,12 @@ const Sidebar = () => {
         },
       ],
     },
-
     {
       name: "Reels Report",
       path: "/admin/videoreport",
       iconName: "FileText",
       onClick: handleCloseSideBar,
     },
-
 
     { sectionTitle: "Order & Seller" },
 
@@ -150,7 +145,6 @@ const Sidebar = () => {
         {
           subName: "Fake Seller",
           subPath: "/admin/fakeSeller",
-
           subPath3: "/admin/addFakeSeller",
           onClick2: handleCloseSideBar,
         },
@@ -176,17 +170,10 @@ const Sidebar = () => {
     {
       name: "User",
       path: "/admin/user",
-
       path2: "/admin/UserProfile",
       iconName: "Users",
       onClick: handleCloseSideBar,
     },
-    // {
-    //   name: "Seller Withdraw",
-    //   path: "/admin/redeem",
-    //   iconName: "Wallet",
-    //   onClick: handleCloseSideBar,
-    // },
 
     { sectionTitle: "Finance" },
 
@@ -196,7 +183,6 @@ const Sidebar = () => {
       iconName: "Wallet",
       onClick: handleCloseSideBar,
     },
-
     {
       name: "Admin Earning",
       path: "/admin/wallet",
@@ -212,7 +198,6 @@ const Sidebar = () => {
       iconName: "HelpCircle",
       onClick: handleCloseSideBar,
     },
-
     {
       name: "Setting",
       iconName: "Settings",
@@ -255,38 +240,81 @@ const Sidebar = () => {
       iconName: "User",
       onClick: handleCloseSideBar,
     },
-    {
-      name: "LogOut",
-      iconName: "LogOut",
-      onClick: handleLogout,
-    },
   ];
-
-
 
   return (
     <>
-      <div className="mainSidebar border-end " >
-        <div className="sideBar webSidebar">
+      <div 
+        className="mainSidebar" 
+        style={{
+          borderRight: "1px solid #e5e5e5",
+          height: "100vh",
+          display: "flex",
+          flexDirection: "column"
+        }}
+      >
+        <div className="sideBar webSidebar" style={{ 
+          display: "flex", 
+          flexDirection: "column", 
+          height: "100%",
+          overflow: "hidden"
+        }}>
+          {/* Logo Section */}
           <div
-            className="sideBarLogo "
+            className="sideBarLogo"
             onClick={() => navigate("/admin/dashboard")}
+            style={{
+              padding: "24px 20px",
+              display: "flex",
+              alignItems: "center",
+              cursor: "pointer",
+              borderBottom: "1px solid #f0f0f0",
+              flexShrink: 0
+            }}
           >
-            <img src={Eralogo22} alt="" width={"50px"} className="me-2" style={{ color: "#b93160" }} />
-            <span className="fs-3 fw-bold" style={{ color: "#b93160", fontSize: "22px", fontWeight: "700" }}>
+            <img 
+              src={Eralogo22} 
+              alt="" 
+              width="50px" 
+              style={{ marginRight: "12px" }} 
+            />
+            <span 
+              style={{ 
+                color: "#000", 
+                fontSize: "20px", 
+                fontWeight: "700",
+                letterSpacing: "-0.5px"
+              }}
+            >
               {projectName}
             </span>
           </div>
-          {/* ======= Navigation ======= */}
-          <div className="navigation">
+
+          {/* Navigation Section - Scrollable */}
+          <div 
+            className="navigation" 
+            style={{ 
+              flex: 1,
+              overflowY: "auto",
+              overflowX: "hidden",
+              padding: "16px 0"
+            }}
+          >
             <nav>
               {navBarArray.map((item, idx) => {
                 if (item.sectionTitle) {
                   return (
                     <p
                       key={`section-${idx}`}
-                      className="p-6 mb-1  mt-1 text-secondary  "
-                      style={{ fontWeight: "300", fontSize: "15px", textTransform: "uppercase" }}
+                      style={{ 
+                        padding: "16px 20px 8px 20px",
+                        margin: "0",
+                        color: "#9ca3af",
+                        fontWeight: "600",
+                        fontSize: "11px",
+                        textTransform: "uppercase",
+                        letterSpacing: "1px"
+                      }}
                     >
                       {item.sectionTitle}
                     </p>
@@ -315,12 +343,24 @@ const Sidebar = () => {
                         />
                       ))}
                   </Navigator>
-
                 );
               })}
             </nav>
+          </div>
 
-
+          {/* Logout Section - Fixed at Bottom */}
+          <div 
+            style={{
+              borderTop: "1px solid #f0f0f0",
+              padding: "16px 0",
+              flexShrink: 0
+            }}
+          >
+            <Navigator
+              name="Logout"
+              iconName="LogOut"
+              onClick={handleLogout}
+            />
           </div>
         </div>
       </div>

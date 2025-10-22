@@ -45,12 +45,12 @@ const UpdateCode = (props) => {
           <div className="row">
             <div
               className="col-xl-6 d-xxl-block d-xl-block d-none  boxCenter"
-              style={{ background: "#b93160" }}
+              style={{ background: "#5C3AEB" }}
             >
               <div
                 className="p-5"
                 style={{
-                  background: "#b93160",
+                  background: "#5C3AEB",
                   
                 }}
               >

@@ -263,7 +263,7 @@ const CategoryWiseSubCategory = (props) => {
               <button
                 onClick={() => navigate(-1)}
                 className="btn  rounded-pill px-4"
-                style={{ border: "1px solid #b93160", margin: "8px 28px", backgroundColor: "#b93160", color: "#fff" }}
+                style={{ border: "1px solid #5C3AEB", margin: "8px 28px", backgroundColor: "#5C3AEB", color: "#fff" }}
               >
                 ← Back
               </button>
@@ -294,7 +294,7 @@ const CategoryWiseSubCategory = (props) => {
                             payload: { type: "subCategory", extraData: state?.id },
                           });
                         }}
-                        style={{ borderRadius: "5px", padding: "8px 32px", background: "#b93160" }}
+                        style={{ borderRadius: "5px", padding: "8px 32px", background: "#5C3AEB" }}
                       />
                       {dialogue && dialogueType === "subCategory" && (
                         <SubCategoryDialoge />

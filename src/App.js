@@ -19,7 +19,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/forgotPassword" element={<ForgotPassword />} />
           <Route path="/changePassword" element={<ChangePassword />} />
-          <Route path="/register" element={<Registration />} />
+          {/* <Route path="/register" element={<Registration />} /> */}
         </Route>
 
         {/* NON-AUTH UTILITY ROUTE (if needed) */}

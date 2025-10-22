@@ -1,18 +1,18 @@
 :root {
   --black--: #000;
   --white--: #fff;
-  --prime--: #b93160;
+  --prime--: #5C3AEB;
   --blackPrime--: #fd90b6;
   --grayPrime--: #cfcfcf;
   --inputBorder--: #cbd5e1;
-  --btnPrime--: #b93160;
+  --btnPrime--: #5C3AEB;
   --cardBorder--: #e8e8e82e;
   --cardBackground--: #ffffff;
   --fontJakarta--: 'Public Sans', sans-serif;
 
 
   /* New Color */
-  --themePrime--: #b93160;
+  --themePrime--: #5C3AEB;
 }
 
 /* Start Default CSS */

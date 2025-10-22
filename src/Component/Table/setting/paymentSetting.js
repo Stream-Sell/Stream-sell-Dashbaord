@@ -365,7 +365,7 @@ const PaymentSetting = (props) => {
                   newClass={`whiteFont`}
                   btnName={`Submit`}
                   btnColor={`btnBlackPrime`}
-                  style={{ width: "90px", borderRadius: "6px" , color : "#fff" ,backgroundColor:"#b93160"}}
+                  style={{ width: "90px", borderRadius: "6px" , color : "#fff" ,backgroundColor:"#5C3AEB"}}
                   onClick={(e) => handleSubmit(e)}
                 />
               </div>

@@ -496,8 +496,8 @@ const Setting = (props) => {
               <Button
                 newClass={`whiteFont`}
                 btnName={`Submit`}
-                btnColor={`#b93160`}
-                style={{ width: "90px", borderRadius: "6px", color: "#fff", backgroundColor: "#b93160", marginBottom: "20px" }}
+                btnColor={`#5C3AEB`}
+                style={{ width: "90px", borderRadius: "6px", color: "#fff", backgroundColor: "#5C3AEB", marginBottom: "20px" }}
                 onClick={(e) => handleSubmit(e)}
               />
             </div>

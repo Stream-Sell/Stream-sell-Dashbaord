@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 const Title = (props) => {
   return (
     <>
-      <div className="title" style={{ color: "#b93160" }}>
+      <div className="title" style={{ color: "#5C3AEB" }}>
         
       </div>
 

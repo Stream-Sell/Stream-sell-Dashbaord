@@ -1,89 +1,28 @@
 import React, { useEffect, useState } from "react";
-import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  Button,
-  TextField,
-  MenuItem,
-  Grid,
-  FormControlLabel,
-  Typography,
-  Box,
-  Divider,
-  CircularProgress,
-  InputAdornment,
-} from "@mui/material";
-import { styled } from "@mui/material/styles";
-import Switch from "@mui/material/Switch";
-import Select from "react-select";
-import CreatableSelect from "react-select/creatable";
-import { useDispatch, useSelector } from "react-redux";
-
+import Button from "../../extra/Button";
+import { CLOSE_DIALOGUE } from "../../store/dialogue/dialogue.type";
+import Input from "../../extra/Input";
+import ToggleSwitch from "../../extra/ToggleSwitch";
+import { connect, useDispatch, useSelector } from "react-redux";
 import {
   createAttribute,
   updateAttribute,
 } from "../../store/attribute/attribute.action";
-import { CLOSE_DIALOGUE } from "../../store/dialogue/dialogue.type";
 import { baseURL } from "../../../util/config";
-import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
 import { getCategory } from "../../store/category/category.action";
 import { getCategoryWiseSubCategory } from "../../store/subCategory/subCategory.action";
+import Select from "react-select";
+import CreatableSelect from "react-select/creatable";
 
-const CustomSwitch = styled(Switch)(({ theme }) => ({
-  width: 46,
-  height: 26,
-  padding: 0,
-  "& .MuiSwitch-switchBase": {
-    padding: 2,
-    "&.Mui-checked": {
-      color: "#fff",
-      transform: "translateX(20px)",
-      "& + .MuiSwitch-track": {
-        backgroundColor: "#b93160",
-        opacity: 1,
-      },
-    },
-  },
-  "& .MuiSwitch-thumb": {
-    backgroundColor: "#fff",
-    width: 18,
-    height: 18,
-    boxShadow: "none",
-  },
-  "& .MuiSwitch-track": {
-    backgroundColor: "#cccccc",
-    borderRadius: 26 / 2,
-    opacity: 1,
-    transition: theme.transitions.create(["background-color"], {
-      duration: 500,
-    }),
-  },
-}));
-
-const AttributeDialog = () => {
-  const dialogueDataFromStore = useSelector(
-    (state) => state.dialogue.dialogueData
-  );
-
-  // For temporary testing override
-  const dialogueData = dialogueDataFromStore ?? true; // fallback to true if undefined
-
-  console.log("dialogueData", dialogueData);
-
+const AttributeDialog = (props) => {
+  const { dialogueData } = useSelector((state) => state.dialogue);
   const { subcategory } = useSelector((state) => state.attribute);
-
   const { category } = useSelector((state) => state.category);
   const { categoryWiseSubCategory } = useSelector((state) => state.subCategory);
-  console.log("categoryWiseSubCategory**", categoryWiseSubCategory);
 
-  
   const dispatch = useDispatch();
 
-
   const [selectedcategoryOptions, setSelectedCategoryOptions] = useState('');
-  console.log("selectedcategoryOptions", selectedcategoryOptions);
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [mongoId, setMongoId] = useState("");
   const [name, setName] = useState("");
@@ -104,8 +43,6 @@ const AttributeDialog = () => {
   });
 
   useEffect(() => {
-    if (!dialogueData) return;
-
     setSelectedCategoryOptions(
       dialogueData?.subCategory?.category
         ? {
@@ -139,33 +76,26 @@ const AttributeDialog = () => {
     setIsActive(attr?.isActive || false);
   }, [dialogueData]);
 
-  const categoryOptions = category.map((item) => ({
+  const categoryOptions = category ? category.map((item) => ({
     value: item._id,
     label: item.name,
-  }));
+  })) : [];
 
-
-  const options = categoryWiseSubCategory.map((item) => ({
+  const options = categoryWiseSubCategory ? categoryWiseSubCategory.map((item) => ({
     value: item.subCategoryId,
     label: item.name,
-  }));
-
-  // const handleChangeCategory = (selected) => {
-  //   console.log("selected", selected);
-  //    setSelectedCategoryOptions(selected);
-  //   if (error.category) {
-  //     setError((prev) => ({ ...prev, category: "" }));
-  //   }
-  // }
+  })) : [];
 
   const handleChangeCategory = (selected) => {
     setSelectedCategoryOptions(selected);
-    setSelectedOptions([]); // Clear subcategories selection when category changes
+    setSelectedOptions([]);
+    if (selected && selected.value) {
+      dispatch(getCategoryWiseSubCategory(selected.value));
+    }
     if (error.category) {
       setError((prev) => ({ ...prev, category: "" }));
     }
   }
-
 
   const handleChange = (selected) => {
     setSelectedOptions(selected);
@@ -176,14 +106,11 @@ const AttributeDialog = () => {
 
   useEffect(() => {
     dispatch(getCategory());
-    console.log("pehle challa");
-    // dispatch(getAllSubcategory());
   }, [dispatch]);
 
   useEffect(() => {
-    if (selectedcategoryOptions !== "") {
-      console.log("Bad me chalaaaaa");
-      dispatch(getCategoryWiseSubCategory(selectedcategoryOptions?.value));
+    if (selectedcategoryOptions && selectedcategoryOptions.value) {
+      dispatch(getCategoryWiseSubCategory(selectedcategoryOptions.value));
     }
   }, [dispatch, selectedcategoryOptions]);
 
@@ -197,8 +124,8 @@ const AttributeDialog = () => {
       icon: "",
     };
     let isValid = true;
-    if (!selectedcategoryOptions || selectedcategoryOptions.length === 0) {
-      newErrors.category = "Please select at least one category.";
+    if (!selectedcategoryOptions || !selectedcategoryOptions.value) {
+      newErrors.category = "Please select a category.";
       isValid = false;
     }
     if (!selectedOptions || selectedOptions.length === 0) {
@@ -227,19 +154,20 @@ const AttributeDialog = () => {
     return isValid;
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // 
+  const handleSubmit = () => {
     if (!validateForm()) return;
+    const fieldTypeNumber = parseInt(fieldType, 10);
+    if (isNaN(fieldTypeNumber) || fieldTypeNumber < 1 || fieldTypeNumber > 6) {
+      setError((prev) => ({ ...prev, fieldType: "Invalid field type selected" }));
+      return;
+    }
     const isChoiceType = ["4", "5", "6"].includes(fieldType);
     const formData = new FormData();
     if (mongoId) {
       formData.append("attributeId", mongoId);
-    } else {
-      console.error("Error: mongoId is not set");
     }
     formData.append("name", name.trim());
-    formData.append("fieldType", Number(fieldType));
+    formData.append("fieldType", fieldTypeNumber);
     formData.append("isRequired", isRequired);
     formData.append("isActive", isActive);
     if (isChoiceType) {
@@ -255,9 +183,6 @@ const AttributeDialog = () => {
     if (icon && typeof icon !== "string") {
       formData.append("image", icon);
     }
-    for (let [key, value] of formData.entries()) {
-      console.log(`${key}:`, value);
-    }
     if (mongoId) {
       dispatch(updateAttribute(formData));
     } else {
@@ -266,229 +191,311 @@ const AttributeDialog = () => {
     dispatch({ type: CLOSE_DIALOGUE });
   };
 
+  const handleIconChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setIcon(file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+      if (error.icon) {
+        setError((prev) => ({ ...prev, icon: "" }));
+      }
+    }
+  };
+
   useEffect(() => {
     return () => {
-      if (
-        preview &&
-        typeof preview === "string" &&
-        preview.startsWith("blob:")
-      ) {
+      if (preview && typeof preview === "string" && preview.startsWith("blob:")) {
         URL.revokeObjectURL(preview);
       }
     };
   }, [preview]);
 
   return (
-    <Dialog
-      open={Boolean(dialogueData)}
-      onClose={() => dispatch({ type: CLOSE_DIALOGUE })}
-      maxWidth="sm"
-      fullWidth
-      sx={{
-        "& .MuiDialog-paper": {
-          borderRadius: "18px",
-          width: "600px",
-          maxWidth: "100vw",
-          padding: "6px 5px",
-        },
-      }}
-    >
-      <DialogTitle>
-        <Typography variant="h5" component="span">
-          {mongoId ? "Edit Attribute" : "Create Attribute"}
-        </Typography>
-      </DialogTitle>
-      <DialogContent>
-        <form onSubmit={handleSubmit}>
-          <Grid container spacing={2} sx={{ mt: 1 }}>
+    <>
+      <style jsx>{`
+        .mainDialogue {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: rgba(0, 0, 0, 0.5);
+          backdrop-filter: blur(4px);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          z-index: 9999;
+          animation: fadeIn 0.2s ease-in-out;
+        }
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+          }
+          to {
+            opacity: 1;
+          }
+        }
+        @keyframes slideUp {
+          from {
+            opacity: 0;
+          }
+          to {
+            opacity: 1;
+          }
+        }
+        .Dialogue {
+          background: #ffffff;
+          border-radius: 16px;
+          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+          width: 90%;
+          max-width: 500px;
+          max-height: 90vh;
+          overflow: hidden;
+          animation: slideUp 0.3s ease-out;
+        }
+        .dialogueHeader {
+          background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+          padding: 24px 28px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .headerTitle {
+          font-size: 20px;
+          font-weight: 700;
+          color: #ffffff;
+          letter-spacing: -0.3px;
+        }
+        .closeBtn {
+          width: 36px;
+          height: 36px;
+          border-radius: 8px;
+          background: rgba(255, 255, 255, 0.2);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          color: #ffffff;
+          font-size: 18px;
+        }
+        .closeBtn:hover {
+          background: rgba(255, 255, 255, 0.3);
+          transform: rotate(90deg);
+        }
+        .dialogueMain {
+          padding: 28px;
+          max-height: calc(90vh - 180px);
+          overflow-y: auto;
+        }
+        .dialogueMain::-webkit-scrollbar {
+          width: 6px;
+        }
+        .dialogueMain::-webkit-scrollbar-track {
+          background: #f9fafb;
+        }
+        .dialogueMain::-webkit-scrollbar-thumb {
+          background: #d1d5db;
+          border-radius: 3px;
+        }
+        .dialogueMain::-webkit-scrollbar-thumb:hover {
+          background: #9ca3af;
+        }
+        .image-start {
+          margin-top: 16px;
+          padding: 16px;
+          background: #f9fafb;
+          border-radius: 12px;
+          border: 2px dashed #e5e7eb;
+          display: inline-block;
+        }
+        .image-start img {
+          border-radius: 8px;
+          object-fit: cover;
+          display: block;
+          border: 2px solid #e5e7eb;
+        }
+        .dialogueFooter {
+          padding: 20px 28px;
+          background: #fafbfc;
+          border-top: 1px solid #e8eaed;
+        }
+        .dialogueBtn {
+          display: flex;
+          gap: 12px;
+          justify-content: flex-end;
+        }
+        .btnBlackPrime {
+          background: #3b82f6 !important;
+          color: #ffffff !important;
+          border: none !important;
+          padding: 10px 24px !important;
+          border-radius: 8px !important;
+          font-weight: 600 !important;
+          font-size: 14px !important;
+          transition: all 0.2s ease !important;
+          min-width: 100px !important;
+        }
+        .btnBlackPrime:hover {
+          background: #2563eb !important;
+          box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2) !important;
+        }
+        .myCustomButton {
+          background: #ffffff !important;
+          color: #6b7280 !important;
+          border: 1px solid #e5e7eb !important;
+          padding: 10px 24px !important;
+          border-radius: 8px !important;
+          font-weight: 600 !important;
+          font-size: 14px !important;
+          transition: all 0.2s ease !important;
+          min-width: 100px !important;
+        }
+        .myCustomButton:hover {
+          background: #f9fafb !important;
+          border-color: #d1d5db !important;
+        }
+        .col-12 {
+          margin-bottom: 20px;
+        }
+        .col-12:last-child {
+          margin-bottom: 0;
+        }
+        .errorText {
+          color: #ef4444;
+          font-size: 12px;
+          margin-top: 4px;
+          font-weight: 500;
+        }
+        .selectWrapper label,
+        .fieldValuesLabel,
+        .iconSection label {
+          display: block;
+          font-weight: 600;
+          color: #374151;
+          margin-bottom: 8px;
+          font-size: 14px;
+        }
+        .toggleSection {
+          display: flex;
+          gap: 24px;
+          margin-top: 20px;
+          padding: 16px;
+          background: #f9fafb;
+          border-radius: 8px;
+        }
+        .toggleItem {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 12px;
+          flex: 1;
+        }
+        .toggleItem label {
+          font-weight: 600;
+          color: #374151;
+          font-size: 14px;
+          margin: 0;
+        }
+        @media (max-width: 576px) {
+          .Dialogue {
+            width: 95%;
+            max-width: 95%;
+          }
+          .dialogueHeader {
+            padding: 20px 20px;
+          }
+          .headerTitle {
+            font-size: 18px;
+          }
+          .dialogueMain {
+            padding: 20px;
+          }
+          .dialogueFooter {
+            padding: 16px 20px;
+          }
+          .dialogueBtn {
+            flex-direction: column;
+          }
+          .btnBlackPrime,
+          .myCustomButton {
+            width: 100% !important;
+            min-width: 100% !important;
+          }
+          .toggleSection {
+            flex-direction: column;
+            gap: 16px;
+          }
+        }
+      `}</style>
 
-
-            {/* category */}
-
-            <Grid item xs={12}>
-              <Typography variant="body1" sx={{ mb: 0.5 }}>
-                Select Category
-              </Typography>
-              <Select
-                options={categoryOptions}
-                value={selectedcategoryOptions}
-                onChange={handleChangeCategory}
-                placeholder="Select Category..."
-                isDisabled={Boolean(mongoId)} // Disable when editing
-                styles={{
-                  control: (base) => ({
-                    ...base,
-                    borderRadius: 8,
-                    minHeight: 48,
-                  }),
-                }}
-              />
-              {error.category && (
-                <Typography variant="caption" color="error">
-                  {error.category}
-                </Typography>
-              )}
-            </Grid>
-
-
-
-            {/* category */}
-
-            <Grid item xs={12}>
-              <Typography variant="body1" sx={{ mb: 0.5 }}>
-                Select Subcategories
-              </Typography>
-              {/* <Select
-                isMulti
-                options={options}
-                value={selectedOptions}
-                onChange={handleChange}
-                placeholder="Select subcategories..."
-                styles={{
-                  control: (base) => ({
-                    ...base,
-                    borderRadius: 8,
-                    minHeight: 48,
-                  }),
-                }}
-              /> */}
-
-              <Select
-                isMulti
-                options={options}
-                value={selectedOptions}
-                onChange={handleChange}
-                placeholder="Select subcategories..."
-                isDisabled={Boolean(mongoId)} // Disable when editing
-                styles={{
-
-                  menu: (base) => ({
-                    ...base,
-                    backgroundColor: '#fff', // Ensures the dropdown is solid white
-                    zIndex: 100, // Improves stacking above fields if needed
-                  }),
-                  multiValue: (base) => ({
-                    ...base,
-                    backgroundColor: '#b93160',
-                    borderRadius: 20,
-                    padding: '0 6px 0 12px',
-                    display: 'flex',
-                    alignItems: 'center'
-                  }),
-                  multiValueLabel: (base) => ({
-                    ...base,
-                    color: '#fff',
-                    fontWeight: 700,
-                    fontSize: '1rem',
-                    padding: '2px 8px 2px 0',
-                  }),
-                  multiValueRemove: (base) => ({
-                    ...base,
-                    backgroundColor: '#fff',
-                    color: '#b93160',
-                    borderRadius: '50%',
-                    minWidth: 22,
-                    minHeight: 22,
-                    width: 22,
-                    height: 22,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    marginLeft: 5,
-                    boxShadow: '0 1px 4px rgba(185,49,96,0.09)',
-                    border: 'none',
-                    fontSize: 18,
-                    cursor: 'pointer',
-                    padding: 0,
-                    transition: 'all 0.1s',
-                    // Optionally uncomment below for hover effect
-                    // ':hover': {
-                    //   backgroundColor: '#b93160',
-                    //   color: '#fff',
-                    // },
-                  }),
-                  control: (base) => ({
-                    ...base,
-                    borderRadius: 8,
-                    minHeight: 48,
-                  }),
-                }}
-              />
-
-
-
-              {error.subcategories && (
-                <Typography variant="caption" color="error">
-                  {error.subcategories}
-                </Typography>
-              )}
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                label="Field Name"
-                value={name}
-                fullWidth
-                onChange={(e) => {
-                  setName(e.target.value);
-                  if (error.name) setError((prev) => ({ ...prev, name: "" }));
-                }}
-                error={Boolean(error.name)}
-                helperText={error.name}
-                sx={{
-                  borderRadius: 1,
-                }}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                select
-                label="Field Type"
-                value={fieldType}
-                fullWidth
-                onChange={(e) => {
-                  setFieldType(e.target.value);
-                  if (error.fieldType)
-                    setError((prev) => ({ ...prev, fieldType: "" }));
-                }}
-                error={Boolean(error.fieldType)}
-                helperText={error.fieldType}
-                sx={{ borderRadius: 1 }}
-              >
-                <MenuItem value="5">Dropdown</MenuItem>
-                <MenuItem value="6">Checkboxes</MenuItem>
-              </TextField>
-            </Grid>
-            {["4", "5", "6"].includes(fieldType) && (
-              <Grid item xs={12}>
-                <Typography variant="body2" sx={{ mb: 1 }}>
-                  Field Values
-                </Typography>
-                {/* <CreatableSelect
-                  isMulti
-                  value={fieldValues}
-                  onChange={(newValue) => {
-                    setFieldValues(newValue);
-                    if (error.fieldValues)
-                      setError((prev) => ({ ...prev, fieldValues: "" }));
-                  }}
-                  placeholder="Type and press enter..."
+      <div className="mainDialogue fade-in">
+        <div className="Dialogue">
+          <div className="dialogueHeader">
+            <div className="headerTitle">
+              {mongoId ? "Edit Attribute" : "Add Attribute"}
+            </div>
+            <div
+              className="closeBtn"
+              onClick={() => {
+                dispatch({ type: CLOSE_DIALOGUE });
+              }}
+            >
+              <i className="fa-solid fa-xmark"></i>
+            </div>
+          </div>
+          <div className="dialogueMain">
+            <div className="row">
+              <div className="col-12 selectWrapper">
+                <label>Select Category</label>
+                <Select
+                  options={categoryOptions}
+                  value={selectedcategoryOptions}
+                  onChange={handleChangeCategory}
+                  placeholder="Select Category..."
+                  isDisabled={Boolean(mongoId)}
                   styles={{
                     control: (base) => ({
                       ...base,
                       borderRadius: 8,
                       minHeight: 48,
+                      borderColor: error.category ? '#ef4444' : '#d1d5db',
+                      '&:hover': {
+                        borderColor: error.category ? '#ef4444' : '#9ca3af',
+                      }
+                    }),
+                    menu: (base) => ({
+                      ...base,
+                      zIndex: 100,
                     }),
                   }}
-                /> */}
-                <CreatableSelect
+                />
+                {error.category && <div className="errorText">{error.category}</div>}
+              </div>
+
+              <div className="col-12 selectWrapper">
+                <label>Select Subcategories</label>
+                <Select
                   isMulti
-                  value={fieldValues}
-                  onChange={setFieldValues}
-                  placeholder="Type and press enter..."
+                  options={options}
+                  value={selectedOptions}
+                  onChange={handleChange}
+                  placeholder="Select subcategories..."
+                  isDisabled={Boolean(mongoId)}
                   styles={{
+                    menu: (base) => ({
+                      ...base,
+                      backgroundColor: '#fff',
+                      zIndex: 100,
+                    }),
                     multiValue: (base) => ({
                       ...base,
-                      backgroundColor: '#b93160',
+                      backgroundColor: '#3b82f6',
                       borderRadius: 20,
                       padding: '0 6px 0 12px',
                       display: 'flex',
@@ -497,14 +504,14 @@ const AttributeDialog = () => {
                     multiValueLabel: (base) => ({
                       ...base,
                       color: '#fff',
-                      fontWeight: 700,
-                      fontSize: '1rem',
+                      fontWeight: 600,
+                      fontSize: '14px',
                       padding: '2px 8px 2px 0',
                     }),
                     multiValueRemove: (base) => ({
                       ...base,
                       backgroundColor: '#fff',
-                      color: '#b93160',                 // cross visible always
+                      color: '#3b82f6',
                       borderRadius: '50%',
                       minWidth: 22,
                       minHeight: 22,
@@ -514,192 +521,204 @@ const AttributeDialog = () => {
                       alignItems: 'center',
                       justifyContent: 'center',
                       marginLeft: 5,
-                      boxShadow: '0 1px 4px rgba(185,49,96,0.09)',
+                      boxShadow: '0 1px 4px rgba(0,0,0,0.1)',
                       border: 'none',
-                      fontSize: 18,
+                      fontSize: 16,
                       cursor: 'pointer',
                       padding: 0,
-                      transition: 'all 0.1s',
-                      ':hover': {
-                        // backgroundColor: '#b93160',
-                        // color: '#fff',             // reverse color on hover
-                      },
+                      transition: 'all 0.2s',
+                      '&:hover': {
+                        backgroundColor: '#fee2e2',
+                        color: '#ef4444',
+                      }
+                    }),
+                    control: (base) => ({
+                      ...base,
+                      borderRadius: 8,
+                      minHeight: 48,
+                      borderColor: error.subcategories ? '#ef4444' : '#d1d5db',
+                      '&:hover': {
+                        borderColor: error.subcategories ? '#ef4444' : '#9ca3af',
+                      }
                     }),
                   }}
                 />
+                {error.subcategories && <div className="errorText">{error.subcategories}</div>}
+              </div>
 
-                {error.fieldValues && (
-                  <Typography variant="caption" color="error">
-                    {error.fieldValues}
-                  </Typography>
-                )}
-                <Typography variant="caption" color="text.secondary">
-                  This will be applied only for: <strong>Checkboxes</strong> and{" "}
-                  <strong>Dropdown</strong>.
-                </Typography>
-              </Grid>
-            )}
-            <Grid item xs={12}>
-              <Divider />
-            </Grid>
-            <Grid item xs={12}>
-              <Typography variant="body1" gutterBottom>
-                Attribute Icon
-              </Typography>
-              <Box
-                sx={{
-                  width: 100,
-                  height: 100,
-                  borderRadius: 1,
-                  border: "1px dashed",
-                  borderColor: "divider",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  overflow: "hidden",
-                  position: "relative",
-                  mb: 1,
-                  mt: 1,
-                }}
-              >
-                {preview ? (
-                  <>
-                    <img
-                      src={preview}
-                      alt="Attribute Icon"
-                      style={{
-                        width: "100%",
-                        height: "100%",
-                        objectFit: "cover",
-                        borderRadius: "8px",
-                      }}
-                    />
-                    <Box
-                      sx={{
-                        position: "absolute",
-                        top: 0,
-                        left: 0,
-                        width: "100%",
-                        height: "100%",
-                        background: "rgba(0,0,0,0.5)",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        opacity: 0,
-                        transition: "opacity 0.2s",
-                        cursor: "pointer",
-                        "&:hover": { opacity: 1 },
-                      }}
-                    >
-                      <Typography
-                        variant="caption"
-                        color="white"
-                        align="center"
-                      >
-                        Click to change
-                      </Typography>
-                    </Box>
-                  </>
-                ) : (
-                  <PhotoCameraIcon color="action" />
-                )}
-                <input
-                  type="file"
-                  accept="image/*"
-                  style={{
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
-                    width: "100%",
-                    height: "100%",
-                    opacity: 0,
-                    cursor: "pointer",
-                  }}
+              <div className="col-12">
+                <Input
+                  label="Field Name"
+                  id="name"
+                  type="text"
+                  value={name}
+                  placeholder="Enter field name"
+                  errorMessage={error.name && error.name}
                   onChange={(e) => {
-                    const file = e.target.files[0];
-                    if (file) {
-                      setIcon(file);
-                      const objectUrl = URL.createObjectURL(file);
-                      setPreview(objectUrl);
+                    setName(e.target.value);
+                    if (!e.target.value || !e.target.value.trim()) {
+                      return setError({
+                        ...error,
+                        name: "Field name is required",
+                      });
+                    } else {
+                      return setError({
+                        ...error,
+                        name: "",
+                      });
                     }
-                    if (error.icon) setError((prev) => ({ ...prev, icon: "" }));
                   }}
                 />
-              </Box>
-              <Button
-                variant="outlined"
-                startIcon={<PhotoCameraIcon />}
-                component="label"
-                size="small"
-                sx={{ width: "fit-content", mb: 2 }}
-              >
-                {preview ? "Change Icon" : "Upload Icon"}
-                <input
-                  type="file"
-                  hidden
-                  accept="image/*"
+              </div>
+
+              <div className="col-12">
+                <Input
+                  label="Field Type"
+                  id="fieldType"
+                  type="select"
+                  value={fieldType}
+                  placeholder="Select field type"
+                  errorMessage={error.fieldType && error.fieldType}
                   onChange={(e) => {
-                    const file = e.target.files[0];
-                    if (file) {
-                      setIcon(file);
-                      const objectUrl = URL.createObjectURL(file);
-                      setPreview(objectUrl);
+                    setFieldType(e.target.value);
+                    if (!e.target.value) {
+                      setError({
+                        ...error,
+                        fieldType: "Please select a field type.",
+                      });
+                    } else {
+                      setError({
+                        ...error,
+                        fieldType: "",
+                      });
                     }
-                    if (error.icon) setError((prev) => ({ ...prev, icon: "" }));
+                    if (!["4", "5", "6"].includes(e.target.value)) {
+                      setFieldValues([]);
+                      setError((prev) => ({ ...prev, fieldValues: "" }));
+                    }
                   }}
-                />
-              </Button>
-              <Typography
-                variant="body2"
-                color="text.secondary"
-                className="mt-2"
-              >
-                Recommended size: 256x256 pixels. Maximum file size: 2MB.
-                <br />
-                Formats: JPG, PNG, GIF
-              </Typography>
-              {error.icon && (
-                <Typography variant="caption" color="error" display="block">
-                  {error.icon}
-                </Typography>
+                >
+                  <option value="">Select field type</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                </Input>
+              </div>
+
+              {["4", "5", "6"].includes(fieldType) && (
+                <div className="col-12">
+                  <label className="fieldValuesLabel">Field Values</label>
+                  <CreatableSelect
+                    isMulti
+                    value={fieldValues}
+                    onChange={(selected) => {
+                      setFieldValues(selected || []);
+                      if (error.fieldValues) {
+                        setError((prev) => ({ ...prev, fieldValues: "" }));
+                      }
+                    }}
+                    onCreateOption={(inputValue) => {
+                      const newValue = { value: inputValue, label: inputValue };
+                      setFieldValues([...fieldValues, newValue]);
+                      if (error.fieldValues) {
+                        setError((prev) => ({ ...prev, fieldValues: "" }));
+                      }
+                    }}
+                    placeholder="Type and press enter to add values..."
+                    styles={{
+                      control: (base) => ({
+                        ...base,
+                        borderRadius: 8,
+                        minHeight: 48,
+                        borderColor: error.fieldValues ? '#ef4444' : '#d1d5db',
+                        '&:hover': {
+                          borderColor: error.fieldValues ? '#ef4444' : '#9ca3af',
+                        }
+                      }),
+                      menu: (base) => ({
+                        ...base,
+                        zIndex: 100,
+                      }),
+                      multiValue: (base) => ({
+                        ...base,
+                        backgroundColor: '#e0e7ff',
+                        borderRadius: 6,
+                      }),
+                      multiValueLabel: (base) => ({
+                        ...base,
+                        color: '#3730a3',
+                        fontWeight: 500,
+                      }),
+                      multiValueRemove: (base) => ({
+                        ...base,
+                        color: '#6366f1',
+                        '&:hover': {
+                          backgroundColor: '#fecaca',
+                          color: '#dc2626',
+                        }
+                      }),
+                    }}
+                  />
+                  {error.fieldValues && <div className="errorText">{error.fieldValues}</div>}
+                </div>
               )}
-            </Grid>
-            <Grid item xs={12} sx={{ display: "flex", gap: 2 }}>
-              <FormControlLabel
-                control={
-                  <CustomSwitch
-                    checked={isRequired}
+
+              <div className="col-12 iconSection">
+                <label>Icon Image</label>
+                <Input
+                  type="file"
+                  id="icon"
+                  accept="image/*"
+                  errorMessage={error.icon && error.icon}
+                  onChange={handleIconChange}
+                />
+                {preview && (
+                  <div className="image-start">
+                    <img src={preview} alt="Icon preview" width="100" height="100" />
+                  </div>
+                )}
+              </div>
+
+              <div className="toggleSection">
+                <div className="toggleItem">
+                  <label>Required Field</label>
+                  <ToggleSwitch
+                    value={isRequired}
                     onChange={() => setIsRequired(!isRequired)}
                   />
-                }
-                label="Required"
-              />
-              <FormControlLabel
-                control={
-                  <CustomSwitch
-                    checked={isActive}
+                </div>
+                <div className="toggleItem">
+                  <label>Active</label>
+                  <ToggleSwitch
+                    value={isActive}
                     onChange={() => setIsActive(!isActive)}
                   />
-                }
-                label="Active"
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="dialogueFooter">
+            <div className="dialogueBtn">
+              <Button
+                btnName="Cancel"
+                btnColor="myCustomButton"
+                type="button"
+                onClick={() => dispatch({ type: CLOSE_DIALOGUE })}
               />
-            </Grid>
-          </Grid>
-          <Divider sx={{ my: 2 }} />
-          <Box sx={{ display: "flex", justifyContent: "flex-end", gap: 2 }}>
-            <Button
-              variant="outlined"
-              onClick={() => dispatch({ type: CLOSE_DIALOGUE })}
-            >
-              Cancel
-            </Button>
-            <Button type="submit" variant="contained">
-              {mongoId ? "Update" : "Submit"}
-            </Button>
-          </Box>
-        </form>
-      </DialogContent>
-    </Dialog>
+              <Button
+                btnName={mongoId ? "Update" : "Create"}
+                btnColor="btnBlackPrime text-light"
+                type="button"
+                onClick={handleSubmit}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
   );
 };
 

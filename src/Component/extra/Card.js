@@ -35,7 +35,7 @@ const Card = ({ data, clientPerPage, clientPage }) => {
               </div>
               <p
                 className="fw-bolder mt-2 mb-0 fs-4"
-                style={{ color: "#b93160" }}
+                style={{ color: "#5C3AEB" }}
               >
                 ${item.price}
               </p>

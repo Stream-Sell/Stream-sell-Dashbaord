@@ -16,7 +16,8 @@ const Input = (props) => {
     checked,
     accept,
     onKeyPress,
-    onClick
+    onClick,
+    children
   } = props;
 
   const [types, setTypes] = useState(type);
@@ -29,28 +30,41 @@ const Input = (props) => {
     <>
       <div className={`prime-input  ${type} ${newClass}`}>
         <label htmlFor={id}>{label}</label>
-        <input
-          type={types}
-          className="form-input"
-          id={id}
-          onChange={onChange}
-          value={value}
-          name={name}
-          accept={accept}
-          onWheel={(e) => type === "number" && e.target.blur()}
-          placeholder={placeholder}
-          disabled={disabled}
-          readOnly={readOnly}
-          onKeyPress={onKeyPress}
-          checked={checked}
-          onClick={onClick}
-        />
-        
+        {type === "select" ? (
+          <select
+            className="form-input"
+            id={id}
+            onChange={onChange}
+            value={value}
+            name={name}
+            placeholder={placeholder}
+            disabled={disabled}
+          >
+            {children}
+          </select>
+        ) : (
+          <input
+            type={types}
+            className="form-input"
+            id={id}
+            onChange={onChange}
+            value={value}
+            name={name}
+            accept={accept}
+            onWheel={(e) => type === "number" && e.target.blur()}
+            placeholder={placeholder}
+            disabled={disabled}
+            readOnly={readOnly}
+            onKeyPress={onKeyPress}
+            checked={checked}
+            onClick={onClick}
+          />
+        )}
 
         {type !== "search" && (
           <p className="errorMessage">{errorMessage && errorMessage}</p>
         )}
-        
+
 
         {type === "password" && (
           <div className="passHideShow" onClick={hideShow}>

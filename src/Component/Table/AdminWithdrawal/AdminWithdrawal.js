@@ -435,7 +435,7 @@ const AdminWithdrawal = (props) => {
                                             style={{
                                                 borderRadius: "5px 0px 0px 5px",
                                                 backgroundColor: status === "Create" ? "#f7dada" : "transparent",
-                                                color: status === "1" || status === "All" ? "#b93160" : "#2f2b3db3",
+                                                color: status === "1" || status === "All" ? "#5C3AEB" : "#2f2b3db3",
                                                 cursor: "pointer",
                                                 fontWeight: "500",
                                                 opacity: 1,
@@ -451,7 +451,7 @@ const AdminWithdrawal = (props) => {
                                             style={{
                                                 borderRadius: "0px 5px 5px 0px",
                                                 backgroundColor: status === "Update" ? "#f7dada" : "transparent",
-                                                color: status === "2" ? "#b93160" : "#2f2b3db3",
+                                                color: status === "2" ? "#5C3AEB" : "#2f2b3db3",
                                                 cursor: "pointer",
                                                 fontWeight: "500",
                                                 opacity: 1,
@@ -467,7 +467,7 @@ const AdminWithdrawal = (props) => {
                                             style={{
                                                 borderRadius: "0px 5px 5px 0px",
                                                 backgroundColor: status === "Update" ? "#f7dada" : "transparent",
-                                                color: status === "3" ? "#b93160" : "#2f2b3db3",
+                                                color: status === "3" ? "#5C3AEB" : "#2f2b3db3",
                                                 cursor: "pointer",
                                                 fontWeight: "500",
                                                 opacity: 1,
@@ -615,7 +615,7 @@ const AdminWithdrawal = (props) => {
                             <button
                                 onClick={handleSubmit}
                                 className="submit-btn"
-                                style={{ backgroundColor: "#b93160" }}
+                                style={{ backgroundColor: "#5C3AEB" }}
                             >
                                 Decline Request
                             </button>

@@ -65,7 +65,7 @@ const ReelsInfo = (props) => {
        <div> <button
         onClick={() => navigate(-1)}
         className="btn  rounded-pill px-4 mb-4"
-        style={{border:"1px solid #b93160" , backgroundColor:"#b93160", color:"#fff"}}
+        style={{border:"1px solid #5C3AEB" , backgroundColor:"#5C3AEB", color:"#fff"}}
       >
         ← Back
       </button></div>
@@ -102,7 +102,7 @@ const ReelsInfo = (props) => {
           <div className="col-lg-7">
             <div className="d-flex justify-content-between">
               <div>
-                <h4 className="fw-bold mb-3" style={{ color: "#B93160" }}>Product Information</h4>
+                <h4 className="fw-bold mb-3" style={{ color: "#5C3AEB" }}>Product Information</h4>
                 <div className="d-flex align-items-start gap-4">
                   <img
                     src={reelInfo?.productId?.mainImage || ''}
@@ -123,7 +123,7 @@ const ReelsInfo = (props) => {
               </div>
 
               <div className="">
-                <h4 className="fw-bold mb-2" style={{ color: "#B93160" }}>Thumbnail</h4>
+                <h4 className="fw-bold mb-2" style={{ color: "#5C3AEB" }}>Thumbnail</h4>
                 <img
                   src={reelInfo?.thumbnail || ''}
                   className="rounded shadow"
@@ -139,7 +139,7 @@ const ReelsInfo = (props) => {
               <button
                 className={`btn ${type === "Like" ? "btn" : "btn-outline-secondary"} rounded-pill me-2`}
                 onClick={() => setType("Like")}
-                style={{ backgroundColor: type === "Like" ? "#B93160" : "#fff", color: type === "Like" ? "#fff" : "#000" }}
+                style={{ backgroundColor: type === "Like" ? "#5C3AEB" : "#fff", color: type === "Like" ? "#fff" : "#000" }}
               >
                 Likes ({reelInfo?.like || 0})
               </button>

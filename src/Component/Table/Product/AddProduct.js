@@ -498,7 +498,7 @@ const AddProduct = (props) => {
                   <button
                     onClick={() => navigate(-1)}
                     className="btn  rounded-pill px-4 mb-4"
-                    style={{ border: "1px solid #b93160", marginLeft: "0px", backgroundColor: "#b93160", color: "white" }}
+                    style={{ border: "1px solid #5C3AEB", marginLeft: "0px", backgroundColor: "#5C3AEB", color: "white" }}
                   >
                     ← Back
                   </button>
@@ -816,7 +816,7 @@ const AddProduct = (props) => {
                                 fontSize: "14px",
                                 padding: "5px",
                                 color: "#fff",
-                                backgroundColor: "#B93160",
+                                backgroundColor: "#5C3AEB",
 
                               }}
                               onClick={createCode}

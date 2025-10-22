@@ -362,7 +362,7 @@ const FakeSeller = (props) => {
 
                         navigate("/admin/addFakeSeller");
                       }}
-                      style={{ borderRadius: "5px", padding: "8px 32px", background: "#b93160" }}
+                      style={{ borderRadius: "5px", padding: "8px 32px", background: "#5C3AEB" }}
                     />
                     {dialogue && dialogueType === "isLiveSelller" && (
                       <LiveSellerDialogue />

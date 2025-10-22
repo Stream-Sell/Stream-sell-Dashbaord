@@ -128,7 +128,7 @@ const Withdraw = (props) => {
               <>
                 <div key={i} className="d-flex justify-content-start ">
                   <i
-                    style={{ color: "#b93160", fontSize: "15px" }}
+                    style={{ color: "#5C3AEB", fontSize: "15px" }}
                     className="bi bi-circle-fill mb-1 text-era"
                   ></i>
                   <span className="ms-2 text-white"
@@ -217,7 +217,7 @@ const Withdraw = (props) => {
                           payload: { type: "withdraw" },
                         });
                       }}
-                      style={{ borderRadius: "5px", padding: "8px 32px", background: "#b93160" }}
+                      style={{ borderRadius: "5px", padding: "8px 32px", background: "#5C3AEB" }}
                     />
                     {dialogue && dialogueType === "withdraw" && <WithdrawDialog />}
                   </div>

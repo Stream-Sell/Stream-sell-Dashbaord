@@ -1,10 +1,10 @@
 :root {
   --black--: #000;
   --white--: #fff;
-  --prime--: #b93160;
+  --prime--: #5C3AEB;
 
   /* try this */
-  --blackPrime--: #B93160;
+  --blackPrime--: #5C3AEB;
   --grayPrime--: #cfcfcf;
   --inputBorder--: #cbd5e1;
   --btnPrime--: #6d082b;
@@ -16,7 +16,7 @@
   --TableColumnBold--: #334155;
   --TableFont--: #2f2b3de6;
   /* New Color */
-  --themePrime--: #b93160;
+  --themePrime--: #5C3AEB;
 }
 
 /* ======================== Start Input CSS ======================== */
@@ -141,7 +141,7 @@ input::-webkit-inner-spin-button {
 }
 
 .form-input[type="file"]::file-selector-button {
-  background-color: #b93160;
+  background-color: #5C3AEB;
   /* Desired background color */
   color: #fff;
   /* Text color */
@@ -222,8 +222,8 @@ input::-webkit-inner-spin-button {
 /* for close button */
 .myCustomButton {
   background-color: #ffffff;
-  color: #b93160;
-  border: 1px solid #b93160;
+  color: #5C3AEB;
+  border: 1px solid #5C3AEB;
   
 
 }
@@ -249,12 +249,12 @@ input::-webkit-inner-spin-button {
 
 
 .exitbtn:hover{
-background-color: #b93160;
+background-color: #5C3AEB;
 color: #fff;
 }
 .exitbtn{
 background-color: #fff;
-color: #b93160;
+color: #5C3AEB;
 }
 
 
@@ -303,7 +303,7 @@ color: #b93160;
   font-weight: 600;
   color: #888;
   padding: 16px;
-  border-left: 4px solid #B93160;
+  border-left: 4px solid #5C3AEB;
   width: 220px;
   background-color: #fdf6f8;
 }
@@ -332,7 +332,7 @@ color: #b93160;
   display: flex;
   align-items: center;
   gap: 12px;
-  color: #B93160;
+  color: #5C3AEB;
 }
 
 .custom-wallet-card .header-icon {
@@ -367,7 +367,7 @@ color: #b93160;
 
 .icon-bubble i {
   font-size: 24px;
-  color: #B93160;
+  color: #5C3AEB;
 }
 
 .wallet-title {
@@ -379,7 +379,7 @@ color: #b93160;
 
 .wallet-amount {
   margin: 0;
-  color: #B93160;
+  color: #5C3AEB;
   font-weight: 800;
   font-size: 22px;
 }
@@ -437,7 +437,7 @@ color: #b93160;
 }
 
 input:checked+.slider {
-  background-color: #b93160;
+  background-color: #5C3AEB;
 }
 
 input:focus+.slider {
@@ -654,7 +654,7 @@ input:checked+.slider:before {
 }
 
 .logoTitle {
-  color: #b93160;
+  color: #5C3AEB;
   font-size: 22px;
   font-weight: 700;
 }
@@ -856,7 +856,7 @@ input:checked+.slider:before {
   margin: 5px;
   /* padding: 10px 17px; */
   border-radius: 50%;
-  background-color: #b93160;
+  background-color: #5C3AEB;
   color: #ffffff;
   border: none;
 }
@@ -867,7 +867,7 @@ input:checked+.slider:before {
   margin: 5px;
   /* padding: 10px 15px; */
   border-radius: 50%;
-  /* background-color: #b93160; */
+  /* background-color: #5C3AEB; */
   color: #000;
   border: none;
 }
@@ -950,11 +950,11 @@ input:checked+.slider:before {
 
 .closeBtn {
   background-color: var(--white--);
-  color: #b93160;
+  color: #5C3AEB;
   height: 25px;
   width: 25px;
   border-radius: 50%;
-  border: 1px solid #b93160;
+  border: 1px solid #5C3AEB;
   cursor: pointer;
   justify-content: center;
   display: flex;
@@ -1647,12 +1647,12 @@ input:checked+.slider:before {
 
 .accordion-button:not(.collapsed) {
   background-color: #fde2e2;
-  color: #b93160;
+  color: #5C3AEB;
 }
 
 .btn-add-question {
   background-color: #fde2e2;
-  color: #b93160;
+  color: #5C3AEB;
   font-weight: 600;
   padding: 10px 20px;
   border-radius: 8px;
@@ -1667,7 +1667,7 @@ input:checked+.slider:before {
 }
 
 .faq-gradient-text {
-  background: linear-gradient(to right, #b93160, #f5af19);
+  background: linear-gradient(to right, #5C3AEB, #f5af19);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -1873,7 +1873,7 @@ a.badge-dark:focus {
 
 .badge-era {
   color: #fff;
-  background-color: #b93160;
+  background-color: #5C3AEB;
   padding: 5px 18px;
   font-size: 13px;
   width: 30px !important;
@@ -1947,7 +1947,7 @@ swiper-button-prev:after,
   /* font-feature-settings: ; */
   font-variant: initial;
   line-height: 1;
-  color: #b93160 !important;
+  color: #5C3AEB !important;
    
 }
 
@@ -2019,8 +2019,8 @@ select {
 }
 
 .custom-switch:checked {
-  background-color: #b93160 !important;
-  border-color: #b93160 !important;
+  background-color: #5C3AEB !important;
+  border-color: #5C3AEB !important;
   box-shadow: none !important;
 }
 
@@ -2113,7 +2113,7 @@ select {
 }
 
 .submit-btn {
-  background: #b93160;
+  background: #5C3AEB;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -2123,7 +2123,7 @@ select {
 }
 
 .submit-btn:hover {
-  background: #b93160;
+  background: #5C3AEB;
   transform: translateY(-1px);
 }
 

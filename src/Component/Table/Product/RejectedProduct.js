@@ -2,7 +2,6 @@ import dayjs from "dayjs";
 import React, { useEffect, useState } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
 import Button from "../../extra/Button";
-
 import Searching from "../../extra/Searching";
 import {
   getProductRequest,
@@ -27,7 +26,6 @@ const PendingProduct = (props) => {
   const [data, setData] = useState([]);
   const [updateData, setupdateData] = useState([]);
   const [loading, setLoading] = useState(true);
-
   const [search, setSearch] = useState("");
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [type, setType] = useState("Pending");
@@ -36,10 +34,7 @@ const PendingProduct = (props) => {
   const { productRequest, updateProductRequest } = useSelector(
     (state) => state.product
   );
-
-  const { defaultCurrency } = useSelector((state) => state.currency)
-
-  
+  const { defaultCurrency } = useSelector((state) => state.currency);
 
   useEffect(() => {
     if (status === "Create") {
@@ -54,8 +49,7 @@ const PendingProduct = (props) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 1500); // Adjust the delay time as needed
-
+    }, 1500);
     return () => clearTimeout(timer);
   }, []);
 
@@ -65,13 +59,12 @@ const PendingProduct = (props) => {
     } else {
       setupdateData(updateProductRequest);
     }
-  }, [productRequest, updateProductRequest]);
+  }, [productRequest, updateProductRequest, status]);
 
   useEffect(() => {
-    dispatch(getDefaultCurrency())
-  }, [dispatch])
+    dispatch(getDefaultCurrency());
+  }, [dispatch]);
 
-  // pagination
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -81,18 +74,15 @@ const PendingProduct = (props) => {
     setPage(0);
   };
 
-  // create
   const handleApproved = (productId) => {
-   
     if (status === "Create") {
       props.productAction(productId, "Approved");
     } else {
       props.updateProductAction(productId, "Approved");
     }
   };
-  const handleRejected = (productId) => {
-  
 
+  const handleRejected = (productId) => {
     if (status === "Create") {
       props.productAction(productId, "Rejected");
     } else {
@@ -100,150 +90,158 @@ const PendingProduct = (props) => {
     }
   };
 
-
-
-
-  // table Data
-
-  // create request
-
   const mapData = [
     {
       Header: "No",
       width: "20px",
-      Cell: ({ index }) => <span className="text-white fw-normal">{parseInt(index) + 1}</span>,
+      Cell: ({ index }) => (
+        <span className="text-white fw-normal">{parseInt(index) + 1}</span>
+      ),
     },
     {
       Header: "Product",
       body: "image",
       Cell: ({ row }) => (
-        <div className="d-flex ">
+        <div className="d-flex align-items-center">
           <div className="position-relative">
             {loading ? (
-              <>
-                <Skeleton
-                  height={47}
-                  width={50}
-                  className="StripeElement "
-                  baseColor={colors?.baseColor}
-                  highlightColor={colors?.highlightColor}
-                />
-              </>
+              <Skeleton
+                height={60}
+                width={60}
+                className="StripeElement"
+                baseColor={colors?.baseColor}
+                highlightColor={colors?.highlightColor}
+                style={{ borderRadius: "10px" }}
+              />
             ) : (
-              <>
-                <img
-                  src={row?.mainImage}
-                  height={60}
-                  width={60}
-                  style={{ borderRadius: "10px" }}
-                  alt=""
-                />
-              </>
+              <img
+                src={row?.mainImage}
+                height={60}
+                width={60}
+                style={{
+                  borderRadius: "10px",
+                  objectFit: "cover",
+                  border: "2px solid #e5e7eb",
+                }}
+                alt={row.productName}
+              />
             )}
           </div>
-          <span className="ms-2 boxCenter text-white fw-normal">{row.productName}</span>
+          <div className="ms-3">
+            <div className="text-white fw-semibold" style={{ fontSize: "14px" }}>
+              {row.productName}
+            </div>
+            <div className="text-white" style={{ fontSize: "12px", opacity: 0.7 }}>
+              Code: {row.productCode}
+            </div>
+          </div>
         </div>
       ),
     },
-
     {
-      Header: `Product Code`, body: "productCode",
-      Cell: ({ row }) => (
-        <>
-          <span className="text-white fw-normal">
-            {row.productCode}
-          </span>
-        </>
-      ),
-    },
-
-    {
-      Header: `Price ${defaultCurrency?.symbol|| ''}`,
+      Header: `Price ${defaultCurrency?.symbol || ""}`,
       body: "price",
       Cell: ({ row }) => (
-        <span className="fw-normal text-white">{row.price}</span>
+        <span className="fw-semibold text-white" style={{ fontSize: "14px" }}>
+          {defaultCurrency?.symbol}{row.price}
+        </span>
       ),
     },
     {
-      Header: `Shipping Charges ${defaultCurrency?.symbol|| ''}`,
+      Header: `Shipping ${defaultCurrency?.symbol || ""}`,
       body: "shippingCharges",
-      Cell: ({ row }) => <span className="text-white fw-normal">{row.shippingCharges}</span>,
+      Cell: ({ row }) => (
+        <span className="text-white fw-normal" style={{ fontSize: "14px" }}>
+          {defaultCurrency?.symbol}{row.shippingCharges}
+        </span>
+      ),
     },
-
     {
       Header: "Created Date",
       body: "createdAt",
       Cell: ({ row }) => (
-        <span className="text-white fw-normal">{dayjs(row.createdAt).format("DD MMM YYYY")}</span>
+        <span className="text-white fw-normal" style={{ fontSize: "13px" }}>
+          {dayjs(row.createdAt).format("DD MMM YYYY")}
+        </span>
       ),
     },
     {
-      Header: "Create Status",
+      Header: "Status",
       body: "status",
-      Cell: ({ row }) => (
-        <div className="boxCenter">
-          <span className="badge badge-danger p-2">
-            {status === "Create" ? (
-              <>{row.createStatus}</>
-            ) : (
-              <>{row.updateStatus}</>
-            )}
-          </span>
-        </div>
-      ),
+      Cell: ({ row }) => {
+        const statusText = status === "Create" ? row.createStatus : row.updateStatus;
+        const statusColor = 
+          statusText === "Pending" ? "#fbbf24" :
+          statusText === "Approved" ? "#10b981" :
+          statusText === "Rejected" ? "#ef4444" : "#6b7280";
+        
+        return (
+          <div className="boxCenter">
+            <span
+              className="badge"
+              style={{
+                backgroundColor: statusColor,
+                color: "#ffffff",
+                padding: "6px 14px",
+                borderRadius: "6px",
+                fontSize: "12px",
+                fontWeight: "600",
+              }}
+            >
+              {statusText}
+            </span>
+          </div>
+        );
+      },
     },
-
     {
       Header: "Accept",
       body: "",
       Cell: ({ row }) => (
-        <>
-          <Iconb
-            newClass={`themeFont boxCenter acptbtn  userBtn fs-5`}
-
-            btnIcon={<CheckCircleIcon sx={{ color: "green" }} />}
-            style={{
-              borderRadius: "5px",
-              margin: "auto",
-              width: "40px",
-
-              color: "green",
-              cursor: "pointer",
-            }}
-            onClick={() => handleApproved(row?._id)}
-          />
-        </>
+        <Iconb
+          newClass="themeFont boxCenter acptbtn userBtn"
+          btnIcon={<CheckCircleIcon sx={{ color: "#10b981", fontSize: 28 }} />}
+          style={{
+            borderRadius: "50%",
+            margin: "auto",
+            width: "45px",
+            height: "45px",
+            cursor: "pointer",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            transition: "all 0.2s ease",
+          }}
+          isImage={true}
+          onClick={() => handleApproved(row?._id)}
+        />
       ),
     },
-
     {
       Header: "Reject",
       body: "",
       Cell: ({ row }) => (
-        <>
-          <Iconb
-            newClass={`themeFont boxCenter killbtn userBtn fs-5`}
-
-            btnIcon={<CancelIcon sx={{ color: "red" }} />}
-            style={{
-              borderRadius: "5px",
-              margin: "auto",
-              width: "40px",
-
-              color: "red",
-              cursor: "pointer",
-            }}
-            onClick={() => handleRejected(row?._id)}
-          />
-        </>
+        <Iconb
+          newClass="themeFont boxCenter killbtn userBtn"
+          btnIcon={<CancelIcon sx={{ color: "#ef4444", fontSize: 28 }} />}
+          style={{
+            borderRadius: "50%",
+            margin: "auto",
+            width: "45px",
+            height: "45px",
+            cursor: "pointer",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            transition: "all 0.2s ease",
+          }}
+          isImage={true}
+          onClick={() => handleRejected(row?._id)}
+        />
       ),
     },
-
-    // add more columns as needed
   ];
 
-
-  // searching
   const handleFilterData = (filteredData) => {
     if (typeof filteredData === "string") {
       setSearch(filteredData);
@@ -254,67 +252,114 @@ const PendingProduct = (props) => {
 
   return (
     <>
+      <style jsx>{`
+        .toggleButton {
+          position: relative;
+          overflow: hidden;
+        }
+        .toggleButton::after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          height: 3px;
+          background: linear-gradient(90deg, #3b82f6 0%, #2563eb 100%);
+          transform: scaleX(0);
+          transition: transform 0.3s ease;
+        }
+        .toggleButton.active::after {
+          transform: scaleX(1);
+        }
+        .statsCard {
+          background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+          border-radius: 12px;
+          padding: 16px 20px;
+          color: white;
+          margin: 10px 0;
+          box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+        }
+        .statsCard h3 {
+          font-size: 28px;
+          font-weight: 700;
+          margin: 0;
+        }
+        .statsCard p {
+          font-size: 13px;
+          margin: 4px 0 0 0;
+          opacity: 0.9;
+        }
+      `}</style>
+
       <div className="mainSellerTable">
         <div className="sellerTable">
+          <div className="col-12 headname">Pending Product Requests</div>
           <div className="sellerHeader primeHeader">
-            <div className="row">
-              <div className="col-12 col-md-6 col-sm-3">
+            <div className="row align-items-center">
+              <div className="col-12 col-md-6">
                 <div
-                className="themediv"
                   style={{
                     display: "flex",
-                    borderRadius: "5px ",
-                    
-                    backgroundColor: "#fff",
-                    padding: "0px",
+                    borderRadius: "8px",
+                    backgroundColor: "#f9fafb",
+                    padding: "4px",
                     width: "fit-content",
-                    margin: "10px 0px 0px 0px"
+                    margin: "10px 0",
+                    boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
                   }}
                 >
                   <Button
-                    newClass="themeFont"
+                    newClass={`themeFont toggleButton ${status === "Create" ? "active" : ""}`}
                     btnName="New Items"
                     style={{
-                      borderRadius: "5px 0px 0px 5px",
-                      backgroundColor: status === "Create" ? "#f7dada" : "transparent",
-                      color: status === "Update" ? "#2f2b3db3" : "#b93160",
+                      borderRadius: "6px",
+                      backgroundColor: status === "Create" ? "#3b82f6" : "transparent",
+                      color: status === "Create" ? "#ffffff" : "#6b7280",
                       cursor: "pointer",
-                      fontWeight: "500",
-                      opacity: 1,
-                      padding: "10px 20px",
-                      border: "0.5px solid #D8D7DC",
+                      fontWeight: "600",
+                      padding: "10px 24px",
+                      border: "none",
                       transition: "all 0.2s ease",
+                      fontSize: "14px",
                     }}
                     onClick={() => setStatus("Create")}
                   />
                   <Button
-                    newClass="themeFont"
+                    newClass={`themeFont toggleButton ${status === "Update" ? "active" : ""}`}
                     btnName="Updated Items"
                     style={{
-                      borderRadius: "0px 5px 5px 0px",
-                      backgroundColor: status === "Update" ? "#f7dada" : "transparent",
-                      color: status === "Update" ? "#b93160" : "#2f2b3db3",
+                      borderRadius: "6px",
+                      backgroundColor: status === "Update" ? "#3b82f6" : "transparent",
+                      color: status === "Update" ? "#ffffff" : "#6b7280",
                       cursor: "pointer",
-                      fontWeight: "500",
-                      opacity: 1,
-                      padding: "10px 20px",
-                      border: "0.5px solid #D8D7DC",
-                      transition: "all 0.3s ease",
+                      fontWeight: "600",
+                      padding: "10px 24px",
+                      border: "none",
+                      transition: "all 0.2s ease",
+                      fontSize: "14px",
                     }}
                     onClick={() => setStatus("Update")}
                   />
                 </div>
               </div>
-
+              <div className="col-12 col-md-6">
+                <div className="statsCard">
+                  <h3>{status === "Create" ? data?.length || 0 : updateData?.length || 0}</h3>
+                  <p>Pending {status === "Create" ? "New" : "Update"} Requests</p>
+                </div>
+              </div>
             </div>
           </div>
           <div className="sellerMain">
-            <div className="tableMain " style={{marginTop:"15px"}}>
+            <div className="tableMain" style={{ marginTop: "15px" }}>
               <div className="row">
-                <div className="col-12 d-flex justify-content-end " style={{ padding: "10px 20px 10px 0px" }}>
+                <div
+                  className="col-12 d-flex justify-content-end"
+                  style={{ padding: "10px 20px" }}
+                >
                   <Searching
-                    type={`client`}
-                    data={productRequest}
+                    type="client"
+                    data={status === "Create" ? productRequest : updateProductRequest}
                     setData={setData}
                     column={data}
                     onFilterData={handleFilterData}
@@ -325,22 +370,20 @@ const PendingProduct = (props) => {
                   />
                 </div>
               </div>
-              {type == "Pending" && (
-                <>
-                  <Table
-                    data={status === "Create" ? data : updateData}
-                    mapData={mapData}
-                    PerPage={rowsPerPage}
-                    Page={page}
-                    type={"client"}
-                  />
-                </>
+              {type === "Pending" && (
+                <Table
+                  data={status === "Create" ? data : updateData}
+                  mapData={mapData}
+                  PerPage={rowsPerPage}
+                  Page={page}
+                  type="client"
+                />
               )}
               <Pagination
                 component="div"
                 count={status === "Create" ? data?.length : updateData?.length}
                 serverPage={page}
-                type={"client"}
+                type="client"
                 onPageChange={handleChangePage}
                 serverPerPage={rowsPerPage}
                 totalData={status === "Create" ? data?.length : updateData?.length}

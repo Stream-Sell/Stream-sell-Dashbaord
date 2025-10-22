@@ -1,24 +1,23 @@
 import React, { useEffect, useState } from "react";
-import Table from "../../extra/Table";
-import Pagination from "../../extra/Pagination";
-import { connect, useDispatch, useSelector } from "react-redux";
-import AttributeDialog from "./AttributeDialog";
-import { warning } from "../../../util/Alert";
-import dayjs from "dayjs";
 import Button from "../../extra/Button";
-import Iconb from "../../extra/Iconb";
-import { OPEN_DIALOGUE } from "../../store/dialogue/dialogue.type";
+import { connect, useDispatch, useSelector } from "react-redux";
+import Table from "../../extra/Table";
 import {
   getAttribute,
   deleteAttribute,
   getAllSubcategory,
 } from "../../store/attribute/attribute.action";
+import { OPEN_DIALOGUE } from "../../store/dialogue/dialogue.type";
+import AttributeDialog from "./AttributeDialog";
+import { warning } from "../../../util/Alert";
+import dayjs from "dayjs";
+import "react-loading-skeleton/dist/skeleton.css";
+import Skeleton from "react-loading-skeleton";
+import { colors } from "../../../util/SkeletonColor";
+import Iconb from "../../extra/Iconb";
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Select from 'react-select';
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
-import { colors } from "../../../util/SkeletonColor";
 import { baseURL } from "../../../util/config";
 
 const Attribute = (props) => {
@@ -26,7 +25,7 @@ const Attribute = (props) => {
   const [data, setData] = useState([]);
 
   const [rowsPerPage, setRowsPerPage] = useState(10);
-  const [selectedOptions, setSelectedOptions] = useState("All");
+  const [selectedOptions, setSelectedOptions] = useState({ value: "All", label: "All" });
   const [loading, setLoading] = useState(true);
 
   const dispatch = useDispatch();
@@ -36,10 +35,7 @@ const Attribute = (props) => {
     { value: "5", label: "Dropdown" },
     { value: "6", label: "Checkboxes" },
   ];
-  const [fieldType, setFieldType] = useState("All");
-  console.log("fieldType777", fieldType);
-
-  const [selectedFieldType, setSelectedFieldType] = useState(fieldTypeOptions[0]); // Default selected "All"
+  const [fieldType, setFieldType] = useState({ value: "All", label: "All" });
 
 
   const { attribute } = useSelector((state) => state.attribute);
@@ -118,17 +114,7 @@ const Attribute = (props) => {
     dispatch(getAllSubcategory());
   }, [])
 
-  const handleFieldTypeChange = (e) => {
-    const value = e.target.value;
-    setFieldType(value);
 
-    if (value === "All") {
-      setData(attribute);
-    } else {
-      const filtered = attribute.filter((attr) => attr?.fieldType === value);
-      setData(filtered);
-    }
-  };
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -143,68 +129,79 @@ const Attribute = (props) => {
   const mapData = [
     {
       Header: "No",
-      width: "20px",
-      Cell: ({ index }) => <span className="text-white">{parseInt(index) + 1}</span>,
+      width: "60px",
+      Cell: ({ index }) => <span className="fw-normal">{index + 1}</span>,
     },
-
-
     {
       Header: "Image",
       body: "image",
       Cell: ({ row }) => (
         <>
           {loading ? (
-            <>
-              <Skeleton
-                height={40}
-                width={40}
-                style={{ borderRadius: "50px", cursor: "pointer" }}
-                className="StripeElement "
-                baseColor={colors?.baseColor}
-                highlightColor={colors?.highlightColor}
-              />
-            </>
+            <Skeleton
+              height={50}
+              width={50}
+              circle={true}
+              className="StripeElement"
+              baseColor={colors?.baseColor}
+              highlightColor={colors?.highlightColor}
+            />
           ) : (
-            <>
-              <img
-                src={row.attributes ? row.attributes[0]?.image.includes("http") ? row.attributes[0]?.image : baseURL + row.attributes[0]?.image : "/dummy.png"}
-                style={{ borderRadius: "50px", cursor: "pointer" }}
-                height={45}
-                width={45}
-                alt="category"
-                // onClick={() =>
-                //   navigate("/admin/category/subCategory", {
-                //     state: { id: row?._id },
-                //   })
-                // }
-                onError={(e) => {
-                  e.target.onerror = null;
-                  e.target.src = "/dummy.png";
-                }}
-              />
-
-            </>
+            <img
+              src={row.attributes ? row.attributes[0]?.image.includes("http") ? row.attributes[0]?.image : baseURL + row.attributes[0]?.image : "/dummy.png"}
+              style={{
+                borderRadius: "12px",
+                cursor: "pointer",
+                objectFit: "cover",
+                border: "2px solid #f1f3f4",
+              }}
+              height={50}
+              width={50}
+              alt="attribute"
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = "/dummy.png";
+              }}
+            />
           )}
         </>
       ),
     },
-
     {
-      Header: "Name",
-      body: "subcategory",
+      Header: "Attribute Name",
+      body: "name",
       Cell: ({ row }) => {
-        // Check if row?.attributes exists and has at least one element
         const attribute = row?.attributes && row?.attributes.length > 0 ? row.attributes[0] : null;
-        return <span className="fw-normal fs-6 text-white">{attribute ? attribute.name : "-"}</span>;
+        return (
+          <div>
+            <p className="mb-0 text-capitalize fw-medium" style={{ color: "#1a1a1a" }}>
+              {attribute ? attribute.name : "-"}
+            </p>
+          </div>
+        );
       },
     },
-
     {
       Header: "Subcategory",
-      body: "name",
-      Cell: ({ row }) => <span className="fw-normal fs-6 text-white">{row?.subCategory?.name ? row?.subCategory?.name : "-"}</span>,
+      body: "subcategory",
+      Cell: ({ row }) => (
+        <div>
+          <span
+            className="badge"
+            style={{
+              background: "#e0f2fe",
+              color: "#0369a1",
+              padding: "6px 12px",
+              borderRadius: "6px",
+              fontWeight: "600",
+              fontSize: "13px",
+            }}
+          >
+            {row?.subCategory?.name ? row?.subCategory?.name : "-"}
+          </span>
+        </div>
+      ),
     },
-
     {
       Header: "Type",
       body: "type",
@@ -217,231 +214,304 @@ const Attribute = (props) => {
           5: "Dropdown",
           6: "Checkboxes",
         };
-
         const fieldType = row?.attributes?.[0]?.fieldType;
-        return <span className="fw-normal fs-6 text-white">{typeMap[fieldType] || "Unknown"}</span>;
+        return (
+          <div>
+            <span
+              className="badge"
+              style={{
+                background: "#f0fdf4",
+                color: "#15803d",
+                padding: "6px 12px",
+                borderRadius: "6px",
+                fontWeight: "600",
+                fontSize: "13px",
+              }}
+            >
+              {typeMap[fieldType] || "Unknown"}
+            </span>
+          </div>
+        );
       },
     },
-
-
-    // {
-    //   Header: "Details",
-    //   body: "details",
-    //   Cell: ({ row }) => (
-    //     <span
-    //       className="fw-normal fs-6 text-white"
-    //       style={{
-    //         display: "inline-block",
-    //         maxWidth: "350px",       // Fixed width
-    //         whiteSpace: "normal",    // Allow line breaks
-    //         wordWrap: "break-word",  // Break long words if needed
-    //         overflowWrap: "break-word"
-    //       }}
-    //     >
-    //       {Array.isArray(row?.value) ? row.value.join(", ") : "-"}
-    //     </span>
-    //   )
-
-
-    //   // Cell: ({ row }) => {
-    //   //   const [isExpanded, setIsExpanded] = useState(false);
-    //   //   const detailsText = row?.value?.map((condition) => (
-    //   //     <span className="ms-1 text-capitalize text-white fw-normal">{condition + ","}</span>
-    //   //   ));
-
-    //   //   return (
-    //   //     <div>
-    //   //       {isExpanded ? detailsText : detailsText?.slice(0, 5)}
-    //   //       {row?.value?.length > 2 && !isExpanded}
-    //   //       <span
-    //   //         onClick={() => setIsExpanded(!isExpanded)}
-    //   //         className="pointer text-white fw-normal"
-    //   //         style={{ display: "inline-block", marginLeft: "5px" }}
-    //   //       >
-    //   //         {isExpanded ? "Read Less..." : "Read More"}
-    //   //       </span>
-    //   //     </div>
-    //   //   );
-    //   // },
-    // },
     {
       Header: "Created Date",
       body: "createdAt",
       Cell: ({ row }) => (
-        <span className="text-white fw-normal">{dayjs(row?.createdAt).format("DD MMM YYYY")}</span>
+        <span className="fw-normal" style={{ color: "#6b7280" }}>
+          {dayjs(row?.createdAt).format("DD MMM YYYY")}
+        </span>
       ),
     },
     {
-      Header: "Edit",
+      Header: "Actions",
       body: "",
       Cell: ({ row }) => (
-        <>
-          {/* <img
-          src={EditInfo}
-          height={25}
-          width={25}
-          alt="Edit"
-          onClick={() =>
-            dispatch({
-              type: OPEN_DIALOGUE,
-              payload: { data: row, type: "attribute" },
-            })
-          }
-        /> */}
+        <div className="d-flex gap-2 align-items-center">
           <Iconb
-            type="button"
-            newClass={`themeFont boxCenter infobtn userBtn   `}
-            btnIcon={<CreateOutlinedIcon sx={{ color: '#737272' }} />}
+            newClass="themeFont boxCenter"
+            btnIcon={
+              <CreateOutlinedIcon
+                sx={{ color: "#3b82f6", fontSize: "20px" }}
+              />
+            }
             style={{
-              borderRadius: "50px",
-              margin: "auto",
-              height: "40px",
-              width: "40px",
-              color: "#160d98",
-              padding: "0px"
-
+              borderRadius: "8px",
+              height: "38px",
+              width: "38px",
+              background: "#eff6ff",
+              border: "1px solid #dbeafe",
+              transition: "all 0.2s ease",
             }}
             isImage={true}
-
-            onClick={() =>
+            onClick={() => {
               dispatch({
                 type: OPEN_DIALOGUE,
                 payload: { data: row, type: "attribute" },
-              })
-            }
-
+              });
+            }}
           />
-        </>
-      ),
-    },
-    {
-      Header: "Delete",
-      body: "",
-      Cell: ({ row }) => (
-        <>
           <Iconb
-            newClass={`themeFont boxCenter killbtn userBtn `}
-            btnIcon={<DeleteIcon sx={{ color: '#FF4C51' }} />}
+            newClass="themeFont boxCenter"
+            btnIcon={<DeleteIcon sx={{ color: "#ef4444", fontSize: "20px" }} />}
             style={{
-              borderRadius: "50px",
-              margin: "auto",
-              height: "40px",
-              width: "40px",
-              color: "#160d98",
-              padding: "0px"
-
+              borderRadius: "8px",
+              height: "38px",
+              width: "38px",
+              background: "#fef2f2",
+              border: "1px solid #fee2e2",
+              transition: "all 0.2s ease",
             }}
             isImage={true}
             isDeleted={true}
             onClick={() => handleDelete(row?._id)}
-
           />
-          {/* <button
-            className={`themeBtn text-center `}
-            style={{
-              borderRadius: "5px",
-              margin: "auto",
-              width: "40px",
-              backgroundColor: "#fff",
-              color: "#cd2c2c",
-            }}
-            onClick={() => handleDelete(row?._id)}
-          >
-            <svg
-              width="25"
-              height="25"
-              viewBox="0 0 20 20"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M4.04017 6L4.9258 16.6912C4.98927 17.4622 5.646 18.0667 6.41993 18.0667H14.5801C15.354 18.0667 16.0108 17.4622 16.0742 16.6912L16.9598 6H4.04017ZM7.99953 16.0667C7.7378 16.0667 7.5176 15.8631 7.501 15.5979L7.001 7.53123C6.9839 7.25537 7.19337 7.01807 7.46877 7.00097C7.7544 6.98093 7.98147 7.19287 7.99903 7.46873L8.49903 15.5354C8.51673 15.8211 8.2907 16.0667 7.99953 16.0667ZM11 15.5667C11 15.843 10.7764 16.0667 10.5 16.0667C10.2236 16.0667 10 15.843 10 15.5667V7.5C10 7.22363 10.2236 7 10.5 7C10.7764 7 11 7.22363 11 7.5V15.5667ZM13.999 7.53127L13.499 15.5979C13.4826 15.8604 13.2638 16.0791 12.9687 16.0657C12.6933 16.0486 12.4839 15.8113 12.501 15.5354L13.001 7.46877C13.0181 7.1929 13.2598 6.9922 13.5312 7.001C13.8066 7.0181 14.0161 7.2554 13.999 7.53127ZM17 3H14V2.5C14 1.67287 13.3271 1 12.5 1H8.5C7.67287 1 7 1.67287 7 2.5V3H4C3.4477 3 3 3.4477 3 4C3 4.55223 3.4477 5 4 5H17C17.5523 5 18 4.55223 18 4C18 3.4477 17.5523 3 17 3ZM13 3H8V2.5C8 2.22413 8.22413 2 8.5 2H12.5C12.7759 2 13 2.22413 13 2.5V3Z"
-                fill="#CD2C2C"
-              />
-            </svg>
-          </button> */}
-        </>
+        </div>
       ),
     },
-
-    // add more columns as needed
   ];
 
   return (
     <>
+      <style jsx>{`
+        .mainSellerTable {
+          background: #f8f9fa;
+          min-height: 100vh;
+          padding: 24px;
+        }
+
+        .sellerTable {
+          background: #ffffff;
+          border-radius: 16px;
+          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+          border: 1px solid #e8eaed;
+          overflow: hidden;
+        }
+
+        .headname {
+          font-size: 24px;
+          font-weight: 700;
+          color: #1a1a1a;
+          padding: 24px 24px 0 24px;
+          letter-spacing: -0.5px;
+        }
+
+        .sellerMain {
+          padding: 0;
+        }
+
+        .tableMain {
+          padding: 0;
+        }
+
+        .sellerHeader {
+          padding: 20px 24px;
+          border-bottom: 1px solid #f1f3f4;
+          background: #fafbfc;
+        }
+
+        .primeHeader {
+          display: flex;
+          align-items: center;
+          justify-content: flex-end;
+        }
+
+        .btnBlackPrime {
+          background: #3b82f6 !important;
+          color: #ffffff !important;
+          border: none !important;
+          padding: 10px 24px !important;
+          border-radius: 8px !important;
+          font-weight: 600 !important;
+          font-size: 14px !important;
+          transition: all 0.2s ease !important;
+          display: inline-flex !important;
+          align-items: center !important;
+          gap: 8px !important;
+        }
+
+        .btnBlackPrime:hover {
+          background: #2563eb !important;
+          transform: translateY(-1px);
+          box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3) !important;
+        }
+
+        .btnBlackPrime i {
+          font-size: 14px;
+        }
+
+        .attributeTable table {
+          width: 100%;
+          border-collapse: separate;
+          border-spacing: 0;
+        }
+
+        .attributeTable thead th {
+          background: #fafbfc;
+          color: #6b7280;
+          font-weight: 600;
+          font-size: 13px;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          padding: 16px 20px;
+          border-bottom: 2px solid #e8eaed;
+          white-space: nowrap;
+        }
+
+        .attributeTable tbody td {
+          padding: 16px 20px;
+          border-bottom: 1px solid #f1f3f4;
+          color: #1a1a1a;
+          font-size: 14px;
+          vertical-align: middle;
+        }
+
+        .attributeTable tbody tr:last-child td {
+          border-bottom: none;
+        }
+
+        .attributeTable tbody tr:hover {
+          background: #fafbfc;
+          transition: background 0.2s ease;
+        }
+
+        .themeFont.boxCenter:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
+        }
+
+        .badge {
+          display: inline-block;
+          font-weight: 600;
+        }
+
+        .filters {
+          padding: 20px 24px;
+          border-bottom: 1px solid #f1f3f4;
+          background: #fafbfc;
+        }
+
+        .filters .d-flex {
+          gap: 20px;
+          align-items: end;
+        }
+
+        .filters label {
+          display: block;
+          margin-bottom: 8px;
+          font-weight: 500;
+          color: #374151;
+          font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+          .mainSellerTable {
+            padding: 16px;
+          }
+
+          .headname {
+            font-size: 20px;
+            padding: 20px 16px 0 16px;
+          }
+
+          .sellerHeader {
+            padding: 16px;
+          }
+
+          .attributeTable thead th,
+          .attributeTable tbody td {
+            padding: 12px 16px;
+            font-size: 13px;
+          }
+
+          .filters .d-flex {
+            flex-direction: column;
+            gap: 16px;
+          }
+        }
+      `}</style>
+
       <div className="mainSellerTable">
         <div className="sellerTable">
-          <div className="col-12 headname">Attribute</div>
+          <div className="col-12 headname">Attributes</div>
           <div className="sellerMain">
-
-            <div className="col-12" style={{ marginLeft: "28px" }}>
-              <Button
-                newClass={`whiteFont`}
-                btnColor={`btnBlackPrime `}
-                btnIcon={`fa-solid fa-plus `}
-                btnName={`Add`}
-                onClick={() => {
-                  dispatch({
-                    type: OPEN_DIALOGUE,
-                    payload: { type: "attribute" },
-                  });
-                }}
-                style={{ borderRadius: "5px", padding: "8px 32px", background: "#b93160" }}
-              />
-              {dialogue && dialogueType === "attribute" && (
-                <AttributeDialog />
-              )}
-            </div>
-
-            <div className="tableMain mt-2">
-              <div className="d-flex justify-content-between">
-
-                <div className="col-3" style={{ margin: "20px", zIndex: 50 }}>
-                  <label>Subcategory</label>
-                  <Select
-                    // isMulti
-                    options={options}
-                    value={selectedOptions}
-                    onChange={handleChange}
-                    placeholder="Select Subcategory..."
-                  />
+            <div className="tableMain mt-2 attributeTable">
+              <div className="sellerHeader primeHeader">
+                <div className="row w-100">
+                  <div className="col-12 d-flex justify-content-end">
+                    <Button
+                      newClass="whiteFont"
+                      btnColor="btnBlackPrime"
+                      btnIcon="fa-solid fa-plus"
+                      btnName="Add Attribute"
+                      onClick={() => {
+                        dispatch({
+                          type: OPEN_DIALOGUE,
+                          payload: { type: "attribute" },
+                        });
+                      }}
+                    />
+                    {dialogue && dialogueType === "attribute" && <AttributeDialog />}
+                  </div>
                 </div>
-                {/* 
-                <div className="col-3" style={{ margin: "20px", zIndex: 50 }}>
-                  <label>
-                    Field Type
-                  </label>
-                  <select
-                    className="form-control"
-                    value={fieldType}
-                    onChange={handleFieldTypeChange}
-                    style={{ backgroundColor: "transparent", color: "#333333" }}
-                  >
-                    <option value="All">All</option>
-                    <option value="1">Text Input</option>
-                    <option value="2">Number Input</option>
-                    <option value="3">File Input</option>
-                    <option value="4">Radio</option>
-                    <option value="5">Dropdown</option>
-                    <option value="6">Checkboxes</option>
-                  </select>
-                </div> */}
-
-
-
-                <div className="col-3" style={{ margin: "20px", zIndex: 50 }}>
-                  <label>Field Type</label>
-                  <Select
-                    options={fieldTypeOptions}
-                    value={fieldType}
-                    onChange={(selected) => setFieldType(selected)}
-                    placeholder="Select field type..."
-                  />
+              </div>
+              <div className="filters">
+                <div className="d-flex">
+                  <div className="col-3">
+                    <label>Subcategory</label>
+                    <Select
+                      options={options}
+                      value={selectedOptions}
+                      onChange={handleChange}
+                      placeholder="Select Subcategory..."
+                      styles={{
+                        control: (base) => ({
+                          ...base,
+                          borderRadius: 8,
+                          minHeight: 48,
+                          borderColor: '#d1d5db',
+                        }),
+                      }}
+                    />
+                  </div>
+                  <div className="col-3">
+                    <label>Field Type</label>
+                    <Select
+                      options={fieldTypeOptions}
+                      value={fieldType}
+                      onChange={(selected) => setFieldType(selected)}
+                      placeholder="Select field type..."
+                      styles={{
+                        control: (base) => ({
+                          ...base,
+                          borderRadius: 8,
+                          minHeight: 48,
+                          borderColor: '#d1d5db',
+                        }),
+                      }}
+                    />
+                  </div>
                 </div>
-
-
-
-
               </div>
               <Table
                 data={data}
@@ -450,19 +520,8 @@ const Attribute = (props) => {
                 Page={page}
                 type={"client"}
               />
-              <Pagination   //Pagination if need
-                component="div"
-                count={attribute?.length}
-                serverPage={page}
-                type={"client"}
-                onPageChange={handleChangePage}
-                serverPerPage={rowsPerPage}
-                totalData={attribute?.length}
-                onRowsPerPageChange={handleChangeRowsPerPage}
-              />
             </div>
           </div>
-          <div className="sellerFooter primeFooter"></div>
         </div>
       </div>
     </>
