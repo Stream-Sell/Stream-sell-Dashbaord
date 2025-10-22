@@ -7,6 +7,7 @@ import {
   createCategory,
   updateCategory,
 } from "../../store/category/category.action";
+import { baseURL } from "../../../util/config";
 
 const CategoryDialog = (props) => {
   const { dialogueData } = useSelector((state) => state.dialogue);
@@ -24,7 +25,7 @@ const CategoryDialog = (props) => {
   useEffect(() => {
     setMongoId(dialogueData?._id);
     setName(dialogueData?.name);
-    setImagePath(dialogueData?.image);
+    setImagePath(dialogueData?.image ? dialogueData.image.includes("http") ? dialogueData.image : baseURL + dialogueData.image.replace(/^undefined\//, "") : "");
   }, [dialogueData]);
 
   const handleImage = (e) => {

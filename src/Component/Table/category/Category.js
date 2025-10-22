@@ -19,6 +19,7 @@ import Iconb from "../../extra/Iconb";
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import DeleteIcon from '@mui/icons-material/Delete';
 import InfoOutlined from '@mui/icons-material/InfoOutlined';
+import { baseURL } from "../../../util/config";
 
 const Category = (props) => {
   const [page, setPage] = useState(0);
@@ -88,7 +89,7 @@ const Category = (props) => {
             />
           ) : (
             <img
-              src={row.image}
+              src={row.image ? row.image.includes("http") ? row.image : baseURL + row.image.replace(/^undefined\//, "") : "/dummy.png"}
               style={{
                 borderRadius: "12px",
                 cursor: "pointer",
