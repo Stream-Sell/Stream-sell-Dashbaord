@@ -681,23 +681,6 @@ const AttributeDialog = (props) => {
                   </div>
                 )}
               </div>
-
-              <div className="toggleSection">
-                <div className="toggleItem">
-                  <label>Required Field</label>
-                  <ToggleSwitch
-                    value={isRequired}
-                    onChange={() => setIsRequired(!isRequired)}
-                  />
-                </div>
-                <div className="toggleItem">
-                  <label>Active</label>
-                  <ToggleSwitch
-                    value={isActive}
-                    onChange={() => setIsActive(!isActive)}
-                  />
-                </div>
-              </div>
             </div>
           </div>
           <div className="dialogueFooter">
